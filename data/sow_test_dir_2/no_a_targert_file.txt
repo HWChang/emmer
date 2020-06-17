@@ -1,0 +1,3 @@
+feature_1	10
+feature_3	17
+feature_4	15
