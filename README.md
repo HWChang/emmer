@@ -1,20 +1,26 @@
-# EMMER
-EMMER (Entropy-based Method for Microbial Ecology Research) is a feature selection algorithm. 
+## EMMER
+EMMER (Entropy-based Method for Microbial Ecology Research) is a feature selection algorithm (Fig. 1).
 
-## About
+![Fig. 1](https://wustl.box.com/s/2exo5ecarqtr685c8ipwc2hj40prknux)
+
+### About
 Version: 1.0
 
-## Download
+### Download
+```bash
 cd where_you_want_to_store_the_script
 git clone https://github.com/HWChang/emmer.git
+```
 
-## Usage
+### Usage
+```bash
 cd where_you_want_to_store_the_script
 python3 -m emmer.harvest -g
 python3 -m emmer.bake -g
+```
 
-## License
+### License
 BSD 3-Clause License
 
-## Citation
+### Citation
 Gut microbiome contributions to altered metabolism in a pig model of undernutrition
