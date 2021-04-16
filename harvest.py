@@ -26,7 +26,7 @@ import sys
 import os
 
 start_time = time.time()
-__version__ = '0.9.1'
+__version__ = '1.0'
 
 """
 Take user-defined args and run emmer

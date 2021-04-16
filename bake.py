@@ -18,7 +18,7 @@ import argparse
 import sys
 import os
 
-__version__ = '0.9.1'
+__version__ = '1.0'
 
 """
 This module (emmer.bake) take in EMMER output csv files and generate plots or conduct
