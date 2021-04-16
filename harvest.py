@@ -6,7 +6,8 @@
 
 from .main.basic.math import NonDesityMatrix
 from .main.basic.read import GetFiles, RawDataImport
-from .main.advanced.iteration import MinusOneVNE, MinDataLostFilter, InfoRichCalling, reproducibility, reproducibility_summary, Kernal
+#from .main.advanced.iteration import MinusOneVNE, MinDataLostFilter, InfoRichCalling, reproducibility, reproducibility_summary, Kernal
+from .main.advanced.iteration import MinusOneVNE, InfoRichCalling, reproducibility, reproducibility_summary, Kernal
 from .posthoc.visual.viewer import Projection, Plot
 from .troubleshoot.warn.warning import *
 from .troubleshoot.err.error import *
@@ -25,7 +26,7 @@ import sys
 import os
 
 start_time = time.time()
-__version__ = '0.8.c.6'
+__version__ = '0.9.1'
 
 """
 Take user-defined args and run emmer
@@ -53,7 +54,7 @@ def tutorial():
        this file when running under QuickLook mode,
     2. output/information_rich_features_summary.csv
        Generate a summary when emmer working on multiple input files.
-    3. output/*_scaler.csv
+    3. output/*_colmean.csv
        Store means for each feature. Necessary for projecting new observation onto
        the existing PCA space.
     4. output/*_transformation_matrix.csv
@@ -95,11 +96,8 @@ def tutorial():
     Required:
     -i I               Input directory that contains one or many csv files or a path to specific csv file.
     -f F, -filter      Filter data before nominating information-rich features.
-                       1. MinDataLostFilter: reduce the number of column without affect the overall von Neumann
-                          entropy. Default setting and recommended option.
-                          (Functional. But need to think about this option)
-                       2. HardFilter: Remove column that contains -z levels of zeros. Require to set arugment -z.
-                       3. None: No filer. Might take longer time to nominate information-rich feature.
+                       1. HardFilter: Remove column that contains -z levels of zeros. Require to set arugment -z.
+                       2. None: No filer. Might take longer time to nominate information-rich feature.
     -u U               Upper limit when choosing information-rich feature. Default: 1. When set as 1, the
                        upper limitation is 1 standard deviation from the mean of the von Neumann entropies
                        of all remove-one-column matrices.
@@ -129,6 +127,11 @@ def tutorial():
                        Default: False.
                        Usage:
                        python3 -m emmer.harvest <other_arguments_and_inputs> -r
+    -n N, normalize    Choose this option when your features (columns) are measured in different units. When set as True,
+                       EMMER will normalize each column the input data by its standard deviation.
+                       Default: False.
+                       Usage:
+                       python3 -m emmer.harvest <other_arguments_and_inputs> -n
     -p P, plot         Visualize emmer result with PCA plot(s). Default: False.
                        (Currently emmer cannot generate PCA plot if it only works on input file. Also,
                        user might experience error when generateing 2D PCA plots. These issue will be
@@ -210,6 +213,9 @@ class HarvestArgs:
                               Corresponding to args.s
         warning_code -- Type: str
                         For unittest
+        normalize -- Type: boolean
+                     Scale each column in the mean centered data based on its standard deviation
+                     before SVD
     """
     def __init__(self, suppress, silence, neglect):
         parser = argparse.ArgumentParser(description = '#############################################################################\nPlease use -g when you need additional explanation on different modes their corresponding arguments. Try: python3 -m emmer.harvest -g\n#############################################################################')
@@ -218,8 +224,10 @@ class HarvestArgs:
         parser.add_argument('-q', '-quickLook', action = 'store_true')
         parser.add_argument('-o', type = str)
         parser.add_argument('-r', action = 'store_true')
+        parser.add_argument('-n', '-normalize', action = 'store_true')
         parser.add_argument('-d', '-detectionLimit', type = float)
-        parser.add_argument('-f', '-filter', type = str, choices = ['MinDataLostFilter', 'HardFilter', 'None'])
+#        parser.add_argument('-f', '-filter', type = str, choices = ['MinDataLostFilter', 'HardFilter', 'None'])
+        parser.add_argument('-f', '-filter', type = str, choices = ['HardFilter', 'None'])
         parser.add_argument('-z', '-zeroToleranceLevel', type = float)
         parser.add_argument('-t', type = int)
         parser.add_argument('-u', type = float)
@@ -243,6 +251,7 @@ class HarvestArgs:
             self.output_file_tag = self.args.o
         else:
             self.output_file_tag = ''
+
 
     def getArgsW(self):
         self.notebook_name = initNoteBook(current_wd = os.getcwd(), script_name = 'emmer.harvest', script_version = __version__, tag = self.output_file_tag,
@@ -293,6 +302,13 @@ class HarvestArgs:
             self.use_fractional_abundance = False
 
 
+    def getArgsN(self):
+        if self.args.n:
+            self.normalize = True
+        else:
+            self.normalize = False
+
+
     def getArgsD(self):
         if self.args.d:
             self.detection_limit = self.args.d
@@ -301,18 +317,7 @@ class HarvestArgs:
 
 
     def getArgsFZ(self):
-        if self.args.f == 'MinDataLostFilter':
-            self.tolerance = 1
-            self.filter = self.args.f
-
-            try:
-                if self.args.z:
-                    raise WarningCode1(silence = self.silence)
-            except:
-                self.warning_code = '1'
-
-
-        elif self.args.f == 'HardFilter':
+        if self.args.f == 'HardFilter':
             self.filter = self.args.f
 
             # missing args.z
@@ -411,6 +416,7 @@ class HarvestArgs:
         self.getArgsI()
         self.getArgsQT()
         self.getArgsR()
+        self.getArgsN()
         self.getArgsD()
         self.getArgsFZ()
         self.getArgsUL()
@@ -429,7 +435,7 @@ class EMMER:
     def __init__(self, input_dir, output_file_tag, detection_limit, tolerance,
                  filter, upper_threshold_factor, lower_threshold_factor, specific_csv,
                  infoRich_threshold, num_cpu, notebook_name, neglect, quick_look,
-                 use_fractional_abundance):
+                 use_fractional_abundance, normalize):
 
         self.output_file_tag = str(output_file_tag)
         self.detection_limit = detection_limit
@@ -443,6 +449,7 @@ class EMMER:
         self.neglect = neglect
         self.quick_look = quick_look
         self.use_fractional_abundance = use_fractional_abundance
+        self.normalize = normalize
         self.collections_of_info_rich_features = []
 
         ## import all csv file store under input_dir
@@ -485,7 +492,8 @@ class EMMER:
                            lower_lim = self.lower_threshold_factor, infoRich_threshold = self.infoRich_threshold,
                            quick_look = self.quick_look, use_fractional_abundance = self.use_fractional_abundance,
                            vNE_output_folder =  self.detail_vNE, output_file_tag = self.output_file_tag, num_cpu = self.num_cpu,
-                           notebook_name = self.notebook_name, neglect = self.neglect, silence = self.silence)
+                           notebook_name = self.notebook_name, normalize = self.normalize, neglect = self.neglect,
+                           silence = self.silence)
 
         self.data.importAndProcess()
 
@@ -575,7 +583,7 @@ class EMMER:
         self.collections_of_info_rich_features = list(set(list(itertools.chain(*self.collections_of_info_rich_features))))
 
 
-def mergeDataFrame(EMMER_class, select, file_name_list, info_rich_list, notebook_name, neglect):
+def mergeDataFrame(EMMER_class, select, file_name_list, info_rich_list, notebook_name, normalize, neglect):
     """
     Allow user to merge different kinds of csv files:
 
@@ -637,10 +645,14 @@ def mergeDataFrame(EMMER_class, select, file_name_list, info_rich_list, notebook
 
     EMMER_class.merged_dataframe = merged_dataframe.fillna(0)
 
-    transform_info = Projection(EMMER_class.merged_dataframe)
+    transform_info = Projection(merged_dataframe = EMMER_class.merged_dataframe, normalize = normalize)
 
     transform_info.V_df.to_csv(os.path.join(EMMER_class.output_dir, (select + "__transformation_matrix.csv")))
-    transform_info.scaler_df.to_csv(os.path.join(EMMER_class.output_dir, (select + "__data_scaler.csv")))
+    transform_info.colmean_df.to_csv(os.path.join(EMMER_class.output_dir, (select + "__data_colmean.csv")))
+
+    if normalize == True:
+        transform_info.colstd_df.to_csv(os.path.join(EMMER_class.output_dir, (select + "__data_colstd.csv")))
+
     transform_info.projection_df.to_csv(os.path.join(EMMER_class.output_dir, (select + "__PCA_coordinates.csv")))
     transform_info.PC_annotation.to_csv(os.path.join(EMMER_class.output_dir, (select + "__percent_explained.csv")))
 
@@ -650,22 +662,22 @@ def mergeDataFrame(EMMER_class, select, file_name_list, info_rich_list, notebook
     return(transform_info)
 
 
-def sanityCheck(EMMER_class, input_file_names, current_filter, notebook_name, neglect, make_plot = False):
+def sanityCheck(EMMER_class, input_file_names, current_filter, notebook_name, neglect, normalize, make_plot = False):
     """
     For generate datasets and plots for santiy check
     """
     if current_filter != 'None':
-        Projection_class_in_list = [mergeDataFrame(EMMER_class = EMMER_class, select = 'pre_filter', file_name_list = emmer_result.pre_filter_data_file_names,
+        Projection_class_in_list = [mergeDataFrame(EMMER_class = EMMER_class, select = 'pre_filter', file_name_list = emmer_result.pre_filter_data_file_names, normalize = normalize,
                                                    info_rich_list = emmer_result.collections_of_info_rich_features, notebook_name = notebook_name, neglect = neglect),
-                                    mergeDataFrame(EMMER_class = EMMER_class, select = 'filtered_excluded', file_name_list = emmer_result.filter_out_data_file_names,
+                                    mergeDataFrame(EMMER_class = EMMER_class, select = 'filtered_excluded', file_name_list = emmer_result.filter_out_data_file_names, normalize = normalize,
                                                    info_rich_list = emmer_result.collections_of_info_rich_features, notebook_name = notebook_name, neglect = neglect),
-                                    mergeDataFrame(EMMER_class = EMMER_class, select = 'filtered', file_name_list = emmer_result.clean_df_file_names,
+                                    mergeDataFrame(EMMER_class = EMMER_class, select = 'filtered', file_name_list = emmer_result.clean_df_file_names, normalize = normalize,
                                                    info_rich_list = emmer_result.collections_of_info_rich_features, notebook_name = notebook_name, neglect = neglect),
-                                    mergeDataFrame(EMMER_class = EMMER_class, select = 'filtered_no_infoRich', file_name_list = emmer_result.clean_df_file_names,
+                                    mergeDataFrame(EMMER_class = EMMER_class, select = 'filtered_no_infoRich', file_name_list = emmer_result.clean_df_file_names, normalize = normalize,
                                                    info_rich_list = emmer_result.collections_of_info_rich_features, notebook_name = notebook_name, neglect = neglect),
-                                    mergeDataFrame(EMMER_class = EMMER_class, select = 'filtered_infoRich', file_name_list = emmer_result.clean_df_file_names,
+                                    mergeDataFrame(EMMER_class = EMMER_class, select = 'filtered_infoRich', file_name_list = emmer_result.clean_df_file_names, normalize = normalize,
                                                    info_rich_list = emmer_result.collections_of_info_rich_features, notebook_name = notebook_name, neglect = neglect),
-                                    mergeDataFrame(EMMER_class = EMMER_class, select = 'raw_not_infoRich', file_name_list = emmer_result.raw_not_infoRich_data_name,
+                                    mergeDataFrame(EMMER_class = EMMER_class, select = 'raw_not_infoRich', file_name_list = emmer_result.raw_not_infoRich_data_name, normalize = normalize,
                                                    info_rich_list = emmer_result.collections_of_info_rich_features, notebook_name = notebook_name, neglect = neglect)]
         input_file_in_list_of_list = [input_file_names]
         output_file_name_in_list = [(EMMER_class.output_file_tag + '__pre_filter_projection.csv'),
@@ -678,25 +690,45 @@ def sanityCheck(EMMER_class, input_file_names, current_filter, notebook_name, ne
                           '__filtered_no_infoRich_projection.csv', '__filtered_infoRich_projection.csv', '__raw_not_infoRich_projection.csv']
         dataset_list = ['pre_filter', 'filtered_excluded', 'filtered', 'filtered_no_infoRich', 'filtered_infoRich', 'raw_not_infoRich']
 
-        original_projection = numpy.array(Projection_class_in_list[0].projection_df.iloc[:, 0:3])
-
         for p in range(6):
             Projection_class_in_list[p].projection_df.to_csv(output_file_name_in_list[p])
 
-            new_projection = numpy.array(Projection_class_in_list[p].projection_df.iloc[:, 0:3])
-            #if 'PC3' not in Projection_class_in_list[p].projection_df: TODO:
-            #    new_projection_df = Projection_class_in_list[p].projection_df.iloc[:, 0:2]
-            #    r, c = new_projection_df.shape
-            #    new_projection_df.iloc[3] = [0] * r
-            #    new_projection = numpy.array(new_projection_df)
-            #else:
-            #    new_projection = numpy.array(Projection_class_in_list[p].projection_df.iloc[:, 0:3])
+            if 'PC3' not in Projection_class_in_list[p].projection_df:   # TODO: should work, but need testing
+                new_projection_df = Projection_class_in_list[p].projection_df.iloc[:, 0:2]
+                original_projection = numpy.array(Projection_class_in_list[0].projection_df.iloc[:, 0:2])
+                new_projection = numpy.array(new_projection_df)
+            else:
+                new_projection = numpy.array(Projection_class_in_list[p].projection_df.iloc[:, 0:3])
+                original_projection = numpy.array(Projection_class_in_list[0].projection_df.iloc[:, 0:3])
+
             notebook = UpdateNoteBook(notebook_name = notebook_name, neglect = neglect)
+
             if new_projection.size != 0:
                 mtx1, mtx2, disparity = procrustes(original_projection, new_projection)
                 notebook.updateProcrustesResult(procrustes_score = disparity, which_dataset = dataset_list[p], no_procrustes_score = False)
             else:
                 notebook.updateProcrustesResult(procrustes_score = '', which_dataset = '', no_procrustes_score = True)
+
+
+#        original_projection = numpy.array(Projection_class_in_list[0].projection_df.iloc[:, 0:3])
+#
+#        for p in range(6):
+#            Projection_class_in_list[p].projection_df.to_csv(output_file_name_in_list[p])
+#
+#            new_projection = numpy.array(Projection_class_in_list[p].projection_df.iloc[:, 0:3])
+#            #if 'PC3' not in Projection_class_in_list[p].projection_df: TODO:
+#            #    new_projection_df = Projection_class_in_list[p].projection_df.iloc[:, 0:2]
+#            #    r, c = new_projection_df.shape
+#            #    new_projection_df.iloc[3] = [0] * r
+#            #    new_projection = numpy.array(new_projection_df)
+#            #else:
+#            #    new_projection = numpy.array(Projection_class_in_list[p].projection_df.iloc[:, 0:3])
+#            notebook = UpdateNoteBook(notebook_name = notebook_name, neglect = neglect)
+#            if new_projection.size != 0:
+#                mtx1, mtx2, disparity = procrustes(original_projection, new_projection)
+#                notebook.updateProcrustesResult(procrustes_score = disparity, which_dataset = dataset_list[p], no_procrustes_score = False)
+#            else:
+#                notebook.updateProcrustesResult(procrustes_score = '', which_dataset = '', no_procrustes_score = True)
 
 
     else:
@@ -712,26 +744,48 @@ def sanityCheck(EMMER_class, input_file_names, current_filter, notebook_name, ne
                                     (EMMER_class.output_file_tag + '__filtered_infoRich_projection.csv')]
         index_tag_list = ['__pre_filter_projection.csv', '__filtered_no_infoRich_projection.csv', '__filtered_infoRich_projection.csv']
         dataset_list = ['pre_filter', 'filtered_no_infoRich', 'filtered_infoRich']
-        original_projection = numpy.array(Projection_class_in_list[0].projection_df.iloc[:, 0:3])
+#        original_projection = numpy.array(Projection_class_in_list[0].projection_df.iloc[:, 0:3])
+#
+#        for p in range(3):
+#            Projection_class_in_list[p].projection_df.to_csv(output_file_name_in_list[p])
+#            new_projection = numpy.array(Projection_class_in_list[p].projection_df.iloc[:, 0:3])
+#
+#            # FIXME
+#            #if 'PC3' not in Projection_class_in_list[p].projection_df:
+#            #    new_projection_df = Projection_class_in_list[p].projection_df.iloc[:, 0:2]
+#            #    r, c = new_projection_df.shape
+#            #    new_projection_df.iloc[3] = [0] * r
+#            #    new_projection = numpy.array(new_projection_df)
+#            #else:
+#            #    new_projection = numpy.array(Projection_class_in_list[p].projection_df.iloc[:, 0:3])
+#            notebook = UpdateNoteBook(notebook_name = notebook_name, neglect = neglect)
+#            if new_projection.size != 0:
+#                mtx1, mtx2, disparity = procrustes(original_projection, new_projection)
+#                notebook.updateProcrustesResult(procrustes_score = disparity, which_dataset = dataset_list[p], no_procrustes_score = False)
+#            else:
+#                notebook.updateProcrustesResult(procrustes_score = '', which_dataset = '', no_procrustes_score = True)
 
+
+        # works, but need unittest
         for p in range(3):
             Projection_class_in_list[p].projection_df.to_csv(output_file_name_in_list[p])
-            new_projection = numpy.array(Projection_class_in_list[p].projection_df.iloc[:, 0:3])
 
-            # FIXME
-            #if 'PC3' not in Projection_class_in_list[p].projection_df:
-            #    new_projection_df = Projection_class_in_list[p].projection_df.iloc[:, 0:2]
-            #    r, c = new_projection_df.shape
-            #    new_projection_df.iloc[3] = [0] * r
-            #    new_projection = numpy.array(new_projection_df)
-            #else:
-            #    new_projection = numpy.array(Projection_class_in_list[p].projection_df.iloc[:, 0:3])
+            if 'PC3' not in Projection_class_in_list[p].projection_df:
+                new_projection_df = Projection_class_in_list[p].projection_df.iloc[:, 0:2]
+                original_projection = numpy.array(Projection_class_in_list[0].projection_df.iloc[:, 0:2])
+                new_projection = numpy.array(new_projection_df)
+            else:
+                new_projection = numpy.array(Projection_class_in_list[p].projection_df.iloc[:, 0:3])
+                original_projection = numpy.array(Projection_class_in_list[0].projection_df.iloc[:, 0:3])
+
             notebook = UpdateNoteBook(notebook_name = notebook_name, neglect = neglect)
+
             if new_projection.size != 0:
                 mtx1, mtx2, disparity = procrustes(original_projection, new_projection)
                 notebook.updateProcrustesResult(procrustes_score = disparity, which_dataset = dataset_list[p], no_procrustes_score = False)
             else:
                 notebook.updateProcrustesResult(procrustes_score = '', which_dataset = '', no_procrustes_score = True)
+
 
     if make_plot == True:
         output_file_name_in_list = EMMER_class.output_dir + EMMER_class.output_file_tag + '__sanity_check_PCAs.pdf'
@@ -750,7 +804,8 @@ if __name__ == '__main__':
                          lower_threshold_factor = processed_args.lower_threshold_factor, num_cpu = processed_args.num_cpu,
                          specific_csv = processed_args.specific_csv, infoRich_threshold = processed_args.infoRich_threshold,
                          notebook_name = processed_args.notebook_name, neglect =  processed_args.neglect,
-                         quick_look = processed_args.quick_look, use_fractional_abundance = processed_args.use_fractional_abundance)
+                         quick_look = processed_args.quick_look, normalize = processed_args.normalize,
+                         use_fractional_abundance = processed_args.use_fractional_abundance)
 
     if processed_args.specific_csv == True:
         emmer_result.singleFile()
@@ -760,7 +815,8 @@ if __name__ == '__main__':
             transform_info = mergeDataFrame(EMMER_class = emmer_result, select = 'filtered_infoRich',
                                             file_name_list = emmer_result.clean_df_file_names,
                                             info_rich_list = emmer_result.collections_of_info_rich_features,
-                                            notebook_name = processed_args.notebook_name, neglect =  processed_args.neglect)
+                                            notebook_name = processed_args.notebook_name, normalize = processed_args.normalize,
+                                            neglect =  processed_args.neglect)
         else:
             emmer_result.singleFile()
 
@@ -779,7 +835,8 @@ if __name__ == '__main__':
         os.chdir(emmer_result.output_dir)
         sanityCheck(EMMER_class = emmer_result, input_file_names = processed_args.input.input_files,
                     current_filter = processed_args.filter, make_plot = processed_args.plot_result,
-                    notebook_name = processed_args.notebook_name, neglect =  processed_args.neglect)
+                    notebook_name = processed_args.notebook_name, neglect =  processed_args.neglect,
+                    normalize = processed_args.normalize)
 
     notebook = UpdateNoteBook(notebook_name = processed_args.notebook_name, neglect =  processed_args.neglect).updateRunTime(run_time = run_time)
 

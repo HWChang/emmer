@@ -22,23 +22,20 @@ class TestNonDesityMatrix(unittest.TestCase):
         A = numpy.array([[1, 4, 5, 12]])
 
         with self.assertRaises(ErrorCode41):
-            MatrixA = NonDesityMatrix(data = A, suppress = True)
+            MatrixA = NonDesityMatrix(data = A, normalize = False, suppress = True)
 
     def test_normEigvals(self):
         print('\ntest_NonDesityMatrix.normEigvals:')
-        print('        case 1: detect error generated when coding the arithmetic steps')
+        print('        case 1: use covariance matrix (= centered -> SVD)')
+        print('        case 1.1: detect error generated when coding the arithmetic steps')
         A = numpy.array([[1, 4, 5, 12], [5, 8, 9, 0], [6, 7, 11, 19]])
-        MatrixA = NonDesityMatrix(A)
+        MatrixA = NonDesityMatrix(A, normalize = False)
         my_result = list(numpy.sort(numpy.round(MatrixA.normEigvals(), decimals = 8)))
-
-        #expected_result = [0.        , 0.1744152, 0.82558475]  # numpy
-        expected_result = [0.        , 0.1744152, 0.8255848]  # jax.numpy
+        expected_result = [0.        , 0.1744152, 0.8255848]  # can also be validated in R; prcomp (scale = F)
         numpy.testing.assert_almost_equal(my_result, expected_result)
 
-        # detect error generating when using alternative arithmetic procedure to
-        # eigendecomposition of the covariance matrix of the input matrix
         print('        ---------------------------------------------------')
-        print('        case 2: detect error generating when using alternative arithmetic procedure to\neigendecomposition of the covariance matrix of the input matrix')
+        print('        case 1.2: detect error generating when using alternative arithmetic procedure to\neigendecomposition of the covariance matrix of the input matrix')
         eigenval = numpy.sort(numpy.linalg.eigvals(pandas.DataFrame(A).cov()))  # largest at the right most
         eigenval = eigenval[1:4]
         eigenval[eigenval < 10**-8] = 0
@@ -46,16 +43,32 @@ class TestNonDesityMatrix(unittest.TestCase):
         numpy.testing.assert_almost_equal(my_result, expected_result)
         print('===========================================================')
 
+        print('        case 2: use correlation matrix (= centered -> scale -> SVD)')
+        print('        case 2.1: detect error generated when coding the arithmetic steps')
+        A = numpy.array([[1, 4, 5, 12], [5, 8, 9, 0], [6, 7, 11, 19]])
+        MatrixA = NonDesityMatrix(A, normalize = True)
+        my_result = list(numpy.sort(numpy.round(MatrixA.normEigvals(), decimals = 8)))
+        expected_result = [0.        , 0.29255695, 0.70744305]
+        numpy.testing.assert_almost_equal(my_result, expected_result)
+
+        print('        ---------------------------------------------------')
+        print('        case 2.2: detect error generating when using alternative arithmetic procedure to\neigendecomposition of the correlation matrix of the input matrix')
+        A = numpy.array([[1, 4, 5, 12], [5, 8, 9, 0], [6, 7, 11, 19]])
+        matrixForSVD = numpy.corrcoef(numpy.transpose(A))
+        eigenval = numpy.linalg.eigvalsh(matrixForSVD)
+        eigenval = eigenval[1:4]
+        eigenval[eigenval < 10**-8] = 0
+        expected_result = list(numpy.sort(numpy.round(eigenval/sum(eigenval), decimals = 8))) # can also be validated in R; prcomp (scale = T)
+        numpy.testing.assert_almost_equal(my_result, expected_result)
 
     def test_vNE(self):
         print('test_NonDesityMatrix.vNE:')
         print('        case 1: calculate the von Neuman entropy correctly')
         A = numpy.array([[1, 4, 5, 12], [5, 8, 9, 0], [6, 7, 11, 19]])
-        MatrixA = NonDesityMatrix(A)
+        MatrixA = NonDesityMatrix(A, normalize = False)
         my_result = numpy.round(MatrixA.vNE(), decimals = 8)
 
-        #expected_result = 0.66770602 # numpy
-        expected_result = 0.66770591 # jax.numpy
+        expected_result = 0.66770591
         numpy.testing.assert_almost_equal(my_result, expected_result)
         print('===========================================================')
 
@@ -66,7 +79,7 @@ class TestNonDesityMatrix(unittest.TestCase):
         print('test_NonDesityMatrix.numZeroEig:')
         print('        case 1: the ability to count the number of zero in the list of normalized eigenvalues.\n(one from the list of normEigvals; one from ncol - nrow)')
         A = numpy.array([[1, 4, 5, 12], [5, 8, 9, 0], [6, 7, 11, 19]])
-        MatrixA = NonDesityMatrix(A)
+        MatrixA = NonDesityMatrix(A, normalize = False)
         my_result = MatrixA.numZeroEig()
         self.assertEqual(my_result, 2)
         print('===========================================================')

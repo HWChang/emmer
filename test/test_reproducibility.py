@@ -22,7 +22,7 @@ class TestReproducibilityArgs(unittest.TestCase):
         print('        case 1: missing args.b setting')
         sys.argv[1:] = ['-m', 'Reproducibility', '-i', 'emmer/data/bake_data_dir_4/information_rich_features_summary.csv']
         current_wd = os.getcwd()
-        processed_args = BakeCommonArgs(suppress = True, test = False, silence = False)
+        processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
         processed_args.getHomeKeepingArgs()
         reproducibility_args = ReproducibilityArgs(args = processed_args.args, current_wd = current_wd,
         	                                       suppress = True, silence = False)
@@ -35,7 +35,7 @@ class TestReproducibilityArgs(unittest.TestCase):
         print('        case 3: missing args.i setting')
         sys.argv[1:] = ['-m', 'Reproducibility', '-b', '40']
         current_wd = os.getcwd()
-        processed_args = BakeCommonArgs(suppress = True, test = False, silence = False)
+        processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
         processed_args.getHomeKeepingArgs()
         with self.assertRaises(ErrorCode1):
             reproducibility_args = ReproducibilityArgs(args = processed_args.args, current_wd = current_wd,
@@ -47,7 +47,7 @@ class TestReproducibilityArgs(unittest.TestCase):
         print('        case 4: expect to work')
         print('             4.1: single file')
         sys.argv[1:] = ['-m', 'Reproducibility', '-b', '40', '-i', 'emmer/data/bake_data_dir_4/information_rich_features_summary.csv']
-        processed_args = BakeCommonArgs(suppress = True, test = False, silence = False)
+        processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
         current_wd = os.getcwd()
         processed_args.getHomeKeepingArgs()
         reproducibility_args = ReproducibilityArgs(args = processed_args.args, current_wd = current_wd,
@@ -70,7 +70,7 @@ class TestReproducibilityArgs(unittest.TestCase):
         print('             4.2.1: summarized reproducibilty output')
         sys.argv[1:] = ['-m', 'Reproducibility', '-b', '20', '-i', 'emmer/data/bake_data_dir_5']
         current_wd = os.getcwd()
-        processed_args = BakeCommonArgs(suppress = True, test = False, silence = False)
+        processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
         processed_args.getHomeKeepingArgs()
         reproducibility_args = ReproducibilityArgs(args = processed_args.args, current_wd = current_wd,
                                                        suppress = True, silence = False)
@@ -82,7 +82,7 @@ class TestReproducibilityArgs(unittest.TestCase):
         print('             4.2.2: reproducibilty output from a single input file')
         sys.argv[1:] = ['-m', 'Reproducibility', '-b', '20', '-i', 'emmer/data/bake_data_dir_8/case2_in_folder/']
         current_wd = os.getcwd()
-        processed_args = BakeCommonArgs(suppress = True, test = False, silence = False)
+        processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
         processed_args.getHomeKeepingArgs()
         reproducibility_args = ReproducibilityArgs(args = processed_args.args, current_wd = current_wd,
                                                        suppress = True, silence = False)
@@ -96,7 +96,7 @@ class TestReproducibilityArgs(unittest.TestCase):
         print('                  row: information-rich features; column: input file names')
         sys.argv[1:] = ['-m', 'Reproducibility', '-b', '20', '-i', 'emmer/data/bake_data_dir_8/case3_in_folder/']
         current_wd = os.getcwd()
-        processed_args = BakeCommonArgs(suppress = True, test = False, silence = False)
+        processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
         processed_args.getHomeKeepingArgs()
         reproducibility_args = ReproducibilityArgs(args = processed_args.args, current_wd = current_wd,
                                                    suppress = True, silence = False)

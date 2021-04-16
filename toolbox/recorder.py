@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from ..troubleshoot.err.error import Error, ErrorCode44
+from ..troubleshoot.inquire.input import InputCode6
 import datetime
 import time
 import os
@@ -66,8 +67,8 @@ def initNoteBook(current_wd, script_name, script_version, tag, explicit, neglect
         notebook.write('Version: ' + script_version + '\n')
         notebook.write('Initate time: ' + str(start_time) + '\n')
 
-        # TODO: when args.w == True
-        #       allow InputCodeX
+        if explicit == True:
+            notebook.write('\n' + InputCode6(suppress = False).input_string + '\n')
 
         notebook.write('============================================================================================\n')
         notebook.close()
@@ -104,8 +105,7 @@ class UpdateNoteBook:
             self.notebook.write('User input arguments:\n')
             args_in_str = str(args).replace('Namespace(', '    ').replace(')', '\n').replace(', ','\n    ')
             self.notebook.write(args_in_str)
-            self.notebook.write('\n    None: no user define input; emmer will run with the default setting.\n')
-            self.notebook.write('    Please refer to the Tutorial if you wish to know more about those arugments and their\n')
+            self.notebook.write('\n    Please refer to the Tutorial if you wish to know more about those arugments and their\n')
             self.notebook.write('    default settings. To view the Tutorial, run:\n')
             self.notebook.write('    python3 -m emmer.harvest -g\n')
             self.notebook.write('    python3 -m emmer.bake -g\n')
@@ -150,6 +150,16 @@ class UpdateNoteBook:
                 self.notebook.write(which_dataset + 'contains 0 feature. Skip procrustes test.')
 
             self.notebook.close()
+
+
+    def updatePermanovaResult(self, set_seed, set_cluster, test_result):
+        if self.neglect == False:
+            self.notebook.write('set seed as: ' + str(set_seed) + '\n')
+            self.notebook.write('grouping:\n' + str(set_cluster).replace('Name: cluster, dtype: object', '', 1) + '\n')
+            self.notebook.write('\n')
+            self.notebook.write(str(test_result))
+
+        self.notebook.close()
 
 
     def updateRunTime(self, run_time):

@@ -9,6 +9,8 @@ from .posthoc.stats.permanova import permanovaResult
 from .posthoc.visual.projection import ProjectionArgs, projectNew
 from .posthoc.visual.individual import plotIndividual
 
+from .toolbox.recorder import initNoteBook, UpdateNoteBook
+
 from .troubleshoot.warn.warning import WarningCode9
 from .troubleshoot.inquire.input import InputCode3
 
@@ -16,6 +18,7 @@ import argparse
 import sys
 import os
 
+__version__ = '0.9.1'
 
 """
 This module (emmer.bake) take in EMMER output csv files and generate plots or conduct
@@ -44,6 +47,12 @@ def tutorial(self):
 
        optional:
        -o O               Expect a string. This string will be tag to all your output file name from the analysis.
+       optional:
+       -w W, -writeDownDetails
+                          Do you want to add additional notes as emmer run? Default: False.
+                          (Not available,. Will be included in future update)
+                          Usage:
+                          python3 -m emmer.harvest <other_arguments_and_inputs> -w
     ------------------------------------------------------------
     1. Individual mode:
        python3 -m emmer.bake -m 'Individual' -i emmer/data/bake_data_dir_6/filtered_infoRich__PCA_coordinates.csv
@@ -83,11 +92,14 @@ def tutorial(self):
                           lower bondary, increment)
        -t T               Revisit args.t (-t) setting in EMMER. Expect a three-element tuple. Example: 3,1,1 (upper bondary,
                           lower bondary, increment)
-       -n N               A directory that store detail_vNE.csv files. The input is most likely to be 'output/detal_vNE'
+       -e E               A directory that store detail_vNE.csv files. The input is most likely to be 'output/detal_vNE'
        -i I               A directory that store filtered or prefilter data. The input is most likely to be 'output/filtered_data' or
                           'output/pre_filter_data'
                           Choose the folder based on whether you want to PCA plot generated from the dataset that only contains information-
                           rich features to be similar to the PCA generated from filtered_data or pre_filter_data
+
+       optional:
+       -n N, normalize    Choose this option when you set -n as True when running emmer.harvest
        -c C, -cpuNum      Support multiprocessing. This argument is used to set the number of CPU used in the analysis.
     ------------------------------------------------------------
     5. Bifurication mode:
@@ -97,6 +109,9 @@ def tutorial(self):
 
        -i I               A directory that store filtered data. The input is most likely to be 'output/filtered_data'
        -p P               An emmer-generated summary of the information-rich features.
+
+       optional:
+       -n N, normalize    Choose this option when you set -n as True when running emmer.harvest
     ------------------------------------------------------------
     6. Projection mode:
        python3 -m emmer.bake -m 'Projection' -i emmer/data/bake_data_dir_9/filtered_infoRich__PCA_coordinates.csv
@@ -109,12 +124,15 @@ def tutorial(self):
                            'coordinates') that stores the coordinates of each sample in PCA space.
        -v V                An emmer.harvest generated csv file that stores the transformation matix. Hint: the file name that
                            contains 'transformation_matrix'.
-       -s S                An emmer.harvest generated csv file that stores the scaler. Hint: the file name that contains 'scaler'
+       -s1 S1              An emmer.harvest generated csv file that stores the column means. Hint: the file name that contains '__data_colmean'
        -x X                New observations. Input directory that contains one or many csv files or a path to specific csv file.
                            Expect to have column headers and row names. Each row represents a sample and each column represents a feature.
 
        optional:
        -r R                Convert data into fractional abudance.
+       -s2 S2              An emmer.harvest generated csv file that stores the standard deviation for each column. EMMER will generate this
+                           csv file, when you set -n as True when running emmer.harvest.
+                           Hint: the file name that contains '__data_colstd'
     """
     pass
 
@@ -131,6 +149,8 @@ class BakeCommonArgs:
                     running unittest
         silence -- Type: boolean
                    emmer will not report warning massage when silence == True
+        neglect -- Type: boolean
+                   Suppress notebook initation when running unittest
         test -- Type: boolean
                 Avoid running InputCode3 after trigger WarningCode9 during unittest
 
@@ -146,7 +166,7 @@ class BakeCommonArgs:
                         For unittest
     """
 
-    def __init__(self, suppress, silence, test):
+    def __init__(self, suppress, silence, neglect, test):
         parser = argparse.ArgumentParser(description = '#############################################################################\nPlease use -g when you need additional explanation on different modes their corresponding arguments. Try: python3 -m emmer.harvest -g\n#############################################################################')
         parser.add_argument('-g', '-guide', action = 'store_true')
         parser.add_argument('-i', type = str)
@@ -154,18 +174,22 @@ class BakeCommonArgs:
         parser.add_argument('-p', type = str)
         parser.add_argument('-o', type = str)
         parser.add_argument('-m', '-mode')
-        parser.add_argument('-n', type = str)
+        parser.add_argument('-e', type = str)
+        parser.add_argument('-n', '-normalize', action = 'store_true')
         parser.add_argument('-t', type = str)
         parser.add_argument('-u', type = str)
         parser.add_argument('-l', type = str)
         parser.add_argument('-b', type = int)
         parser.add_argument('-r', action = 'store_true')
         parser.add_argument('-v', type = str)
-        parser.add_argument('-s', type = str)
+        parser.add_argument('-s1', type = str)
+        parser.add_argument('-s2', type = str)
         parser.add_argument('-x', type = str)
         parser.add_argument('-c', '-cpuNum', type = int)
+        parser.add_argument('-w', '-writeDownDetails', action = 'store_true')
         self.args = parser.parse_args()
         self.suppress = suppress
+        self.neglect = neglect
         self.silence = silence
         self.test = test
 
@@ -176,12 +200,15 @@ class BakeCommonArgs:
 
     def getArgsO(self):
         if self.args.o:
-            #print(f'Output file tag: {self.args.o}\n')
             self.output_file_tag = str(self.args.o)
         else:
-            #print(f'No output file tag.\n')
             self.output_file_tag = ''
 
+
+    def getArgsW(self):
+        head, tail = os.path.split(os.getcwd())   # head: no last path component, which is 'revisit', in current working directory
+        self.notebook_name = initNoteBook(current_wd = head, script_name = 'emmer.bake', script_version = __version__,
+                                          tag = self.output_file_tag, neglect = self.neglect, explicit = self.args.w)
 
     def getArgsM(self):
         choice_dict = {'1': 'Individual',
@@ -200,14 +227,14 @@ class BakeCommonArgs:
             self.warning_code = '9'
             if self.test == False:
                 model = InputCode3(set = ['mode'], choice_dict = choice_dict, suppress = False)
-                self.selected_model = model.select
-
-        #print(f'Bake mode: {self.selected_model}\n')
+                self.selected_model = model.selection
 
 
     def getHomeKeepingArgs(self):
         self.getArgsO()
+        self.getArgsW()
         self.getArgsM()
+        UpdateNoteBook(notebook_name = self.notebook_name, neglect = self.neglect).updateArgs(args = self.args)
 
 
 ##==1==## set input parameters
@@ -219,11 +246,11 @@ if __name__ == '__main__':
 
     os.chdir(retrospect_dir)
 
-    common_args = BakeCommonArgs(suppress = False, silence = False, test = False)
+    common_args = BakeCommonArgs(suppress = False, silence = False, neglect = False, test = False)
     common_args.getHomeKeepingArgs()
 
 
-##==2==## different bake modes  ## TODO: write unittest to test all these options
+##==2==## different bake modes
 ##--1--## model = 'Individual'
     # python3 -m emmer.bake -m 'Individual' -i emmer/data/bake_data_dir_6/filtered_infoRich__PCA_coordinates.csv
     if common_args.selected_model == 'Individual':
@@ -235,7 +262,11 @@ if __name__ == '__main__':
     # python3 -m emmer.bake -m 'Permanova' -i emmer/data/bake_data_dir_6/filtered_infoRich__PCA_coordinates.csv
     if common_args.selected_model == 'Permanova':
         permanovaResult(args = common_args.args, current_wd = current_wd, retrospect_dir = retrospect_dir,
-                        output_file_tag = common_args.output_file_tag, suppress = False, silence = False)
+                        output_file_tag = common_args.output_file_tag, notebook_name = common_args.notebook_name,
+                        suppress = False, silence = False, neglect = False)
+#        permanovaResult(args = common_args.args, current_wd = current_wd, retrospect_dir = retrospect_dir,
+#                        output_file_tag = common_args.output_file_tag, suppress = False, silence = False)
+
 
 
 ##--3--## style = 'Reproducibility'

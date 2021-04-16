@@ -1,0 +1,75 @@
+
+[emmer]
+   |
+   +-- sow.py 
+   +-- harvest.py
+   +-- bake.py
+   +-- tests.py                              (new file; run all test_*.py)
+   +-- LICENSE
+   +-- README.md
+   |
+   +-- [main]
+   |      |
+   |      +-- __init__.py 
+   |      +-- [basic]
+   |      |      |
+   |      |      +-- __init__.py
+   |      |      +-- math.py
+   |      |      +-- read.py
+   |      |
+   |      +-- [advanced]
+   |             |
+   |             +-- __init__.py
+   |             +-- iteration.py
+   |
+   +-- [posthoc]
+   |      |
+   |      +-- __init__.py
+   |      +-- [visual]
+   |      |      |
+   |      |      +-- __init__.py
+   |      |      +-- viewer.py
+   |      |
+   |      +-- [stats]
+   |             |
+   |             +-- __init__.py
+   |             +-- analysis.py
+   |
+   +-- [troubleshoot]
+   |      |
+   |      +-- __init__.py
+   |      +-- [inquire]
+   |      |      |
+   |      |      +-- __init__.py
+   |      |      +-- input.py
+   |      |
+   |      +-- [warn]
+   |      |      |
+   |      |      +-- __init__.py
+   |      |      +-- warning.py
+   |      |
+   |      +-- [err]
+   |             |
+   |             +-- __init__.py
+   |             +-- error.py
+   |
+   +-- [toolbox]
+   |      |
+   |      +-- __init__.py
+   |      +-- technical.py
+   |
+   +-- [test]
+   |      |
+   |      +-- __init__.py
+   |      +-- test_read.py
+   |      +-- test_math.py 
+   |      +-- test_iteration.py
+   |      +-- test_harvest.py
+   |      +-- test_viewer.py
+   |      +-- test_bake.py
+   |      +-- test_analysis.py
+   |      +-- test_technical.py
+   |
+   +-- [data]
+          |
+          +-- ...

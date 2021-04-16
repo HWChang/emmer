@@ -5,7 +5,9 @@ from ..err.error import *
 
 import matplotlib.colors as mcolors
 from matplotlib import markers
+import sys
 import re
+
 
 
 """
@@ -340,7 +342,10 @@ class InputCode3:
             confirmed_input = EvaluateInput(input = option, set = ['mode'], expect = choice_dict, suppress = False)
 
         ## export input
-        self.selection = option
+        if option[0] in choice_dict.keys():
+            self.selection = choice_dict[option[0]]
+        else:
+            self.selection = option[0]
 
 
 class InputCode4:
@@ -431,3 +436,55 @@ class InputCode5:
 
         ## export input
         self.decision = option
+
+
+class InputCode6:
+    """
+    Allow users to add notes to the emmer_notebook
+
+    Arguments:
+        suppress -- Type: boolean
+
+    Attributes:
+        input_string -- Type: string
+    """
+
+    def __init__(self, suppress):
+        """
+        [[Input code 6]]
+        Please enter an additional note in the emmer_notebook. Hit Enter once
+        you finish entering your note.
+
+        Your entry:
+        """
+        print(self.__init__.__doc__)
+
+        self.input_string = input()
+
+
+class InputCode7:
+    """
+    Reminding users that running emmer.tests will remove existing output files.
+
+    Arguments:
+        suppress -- Type: boolean
+
+    Attributes:
+        input_string -- Type: string
+    """
+
+    def __init__(self, suppress):
+        """
+        [[Input code 7]]
+        Please note that running emmer.tests will remove existing output files.
+        Please remember to backup those output files if you still want to use
+        them in the future.
+
+        Please enter "yes" when you ready to proceed?
+        """
+        print(self.__init__.__doc__)
+
+        answer = input()
+
+        if answer != "yes":
+            sys.exit()

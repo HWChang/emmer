@@ -22,7 +22,7 @@ class TestIndividualArgs(unittest.TestCase):
         print('             1.1: missing args.i')
         sys.argv[1:] = ['-m', 'Individual']
         current_wd = os.getcwd()
-        processed_args = BakeCommonArgs(suppress = True, test = False, silence = False)
+        processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
         processed_args.getHomeKeepingArgs()
 
         with self.assertRaises(ErrorCode8):
@@ -35,7 +35,7 @@ class TestIndividualArgs(unittest.TestCase):
         sys.argv[1:] = ['-m', 'Individual', '-p', 'emmer/data/bake_data_dir_7/_retrospect_individaul_coloring_parameter.csv',
                         '-i', 'emmer/data/bake_data_dir_6/filtered_infoRich__PCA_coordinates.csv']
         current_wd = os.getcwd()
-        processed_args = BakeCommonArgs(suppress = True, test = False, silence = False)
+        processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
         processed_args.getHomeKeepingArgs()
 
         #with self.assertRaises(WarningCode13):
@@ -47,10 +47,22 @@ class TestIndividualArgs(unittest.TestCase):
 
 
         print('        ---------------------------------------------------')
+        print('             1.3: args.i is not a csv file')
+        sys.argv[1:] = ['-m', 'Individual', '-i', 'emmer/data/problem_maker/read_module/not_a_csv_file.txt']
+        current_wd = os.getcwd()
+        processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
+        processed_args.getHomeKeepingArgs()
+
+        with self.assertRaises(ErrorCode8):
+            individual_args = IndividualArgs(args = processed_args.args, current_wd = current_wd,
+                                             suppress = True, silence = False)
+
+
+        print('        ---------------------------------------------------')
         print('        case 2: expect to work')
         sys.argv[1:] = ['-m', 'Individual', '-p', 'emmer/data/bake_data_dir_7/_retrospect_individaul_coloring_parameter.csv']
         current_wd = os.getcwd()
-        processed_args = BakeCommonArgs(suppress = True, test = False, silence = False)
+        processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
         processed_args.getHomeKeepingArgs()
 
         individual_args = IndividualArgs(args = processed_args.args, current_wd = current_wd,

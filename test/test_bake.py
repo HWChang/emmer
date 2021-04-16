@@ -23,7 +23,7 @@ class TestBakeCommonArgs(unittest.TestCase):
         #with self.assertRaises(ErrorCode9):
         #    processed_args = BakeCommonArgs(suppress = True)
         #    processed_args.getArgsM()
-        processed_args = BakeCommonArgs(suppress = False, test = True, silence = False)
+        processed_args = BakeCommonArgs(suppress = False, test = True, neglect = True, silence = False)
         processed_args.getArgsM()
         my_result = processed_args.warning_code
         expected_result = '9'
@@ -35,7 +35,7 @@ class TestBakeCommonArgs(unittest.TestCase):
         #with self.assertRaises(ErrorCode9):
         #    processed_args = BakeCommonArgs(suppress = True)
         #    processed_args.getArgsM()
-        processed_args = BakeCommonArgs(suppress = False, test = True, silence = False)
+        processed_args = BakeCommonArgs(suppress = False, test = True, neglect = True, silence = False)
         processed_args.getArgsM()
         my_result = processed_args.warning_code
         expected_result = '9'
@@ -48,7 +48,7 @@ class TestBakeCommonArgs(unittest.TestCase):
         print('\ntest_TestBakeCommonArgs.getHomeKeepingArgs:')
         print('        case 1: get arguments')
         sys.argv[1:] = ['-m', 'Reproducibility']
-        processed_args = BakeCommonArgs(suppress = True, test = False, silence = False)
+        processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
         processed_args.getHomeKeepingArgs()
 
         my_result = processed_args.selected_model

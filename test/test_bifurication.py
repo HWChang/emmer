@@ -23,7 +23,7 @@ class TestBifuricationArgs(unittest.TestCase):
         print('             1.1: missing both args.p and args.i setting. raise error for missing args.p')
         sys.argv[1:] = ['-m', 'Bifurication']
         current_wd = os.getcwd()
-        processed_args = BakeCommonArgs(suppress = True, test = False, silence = False)
+        processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
         processed_args.getHomeKeepingArgs()
 
         with self.assertRaises(ErrorCode12):
@@ -34,7 +34,7 @@ class TestBifuricationArgs(unittest.TestCase):
         print('             1.2: missing args.i setting')
         sys.argv[1:] = ['-m', 'Bifurication', '-p', 'emmer/data/bake_data_dir_4/information_rich_features_summary.csv']
         current_wd = os.getcwd()
-        processed_args = BakeCommonArgs(suppress = True, test = False, silence = False)
+        processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
         processed_args.getHomeKeepingArgs()
 
         with self.assertRaises(ErrorCode21):
@@ -46,7 +46,7 @@ class TestBifuricationArgs(unittest.TestCase):
         sys.argv[1:] = ['-m', 'Bifurication', '-p', 'emmer/data/bake_data_dir_4/information_rich_features_summary.csv',
                         '-i', 'emmer/data/data_dir_1']
         current_wd = os.getcwd()
-        processed_args = BakeCommonArgs(suppress = True, test = False, silence = False)
+        processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
         processed_args.getHomeKeepingArgs()
 
         with self.assertRaises(ErrorCode21):
@@ -59,7 +59,7 @@ class TestBifuricationArgs(unittest.TestCase):
         sys.argv[1:] = ['-m', 'Bifurication', '-p', 'emmer/data/bake_data_dir_4/information_rich_features_summary.csv',
                         '-i', 'emmer/data/bake_data_dir_4/filtered_data']
         current_wd = os.getcwd()
-        processed_args = BakeCommonArgs(suppress = True, test = False, silence = False)
+        processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
         processed_args.getHomeKeepingArgs()
 
         bifurication_args = BifuricationArgs(args = processed_args.args, current_wd = current_wd,
@@ -104,7 +104,7 @@ class TestDifferentiatingFeatures(unittest.TestCase):
         A = [[15,2], [11,1], [13,1], [2,1], [1,2], [3,1]]
         A_df = pandas.DataFrame(A, columns=['feature_1','feature_2'], index=['A__s1','A__s2','A__s3','B__s4','B__s5','B__s6'])
 
-        Projection_class_object = Projection(A_df)
+        Projection_class_object = Projection(merged_dataframe = A_df, normalize = False)
         Projection_class_object.cleanSpec()
 
         DifferentiatingFeatures_class_object = DifferentiatingFeatures(Projection_class_object)
@@ -121,7 +121,7 @@ class TestDifferentiatingFeatures(unittest.TestCase):
         C = [[1,2], [3,1], [2,1], [2,1], [1,2], [3,1]]
         C_df = pandas.DataFrame(C, columns=['x1','x2'], index=['A__s1','A__s2','A__s3','B__s4','B__s5','B__s6'])
 
-        Projection_class_object = Projection(C_df)
+        Projection_class_object = Projection(merged_dataframe = C_df, normalize = False)
         Projection_class_object.cleanSpec()
 
         DifferentiatingFeatures_class_object = DifferentiatingFeatures(Projection_class_object)

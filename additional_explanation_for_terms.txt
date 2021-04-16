@@ -1,0 +1,39 @@
+Sometimes you will need to choose level from 'individual', 'group' and 'cluster'. The definition
+of 'individual', 'group' and 'cluster' are as fellow:
+
+'individual': sample; different observation under the same condition or treatment.
+'group': We put all of individuals (sample) that subject to the same treatment or
+collected under the same condition into a single csv file. The name of each group
+are corresponding to the input file name.
+'cluster': the group of group.
+
+For example: you believe that some microbes might interfere with the effect
+             of cancer immunotherapy X, and you believe a noval antibiotic Y
+             can remove those targeted microbes. To test this hypothesis,
+             you recurit paitents with cancer A and randomly divided into
+             four arms:
+             1. recieve immunotherapy X and antibiotic Y
+             2. recieve immunotherapy X and but not antibiotic Y
+             3. recieve antibiotic Y and but not immunotherapy X
+             4. does not recieve immunotherapy X nor antibiotic Y
+
+             Each paients in your clinical trial will be a 'individual', and
+             each treatment arm will be a 'group'
+
+             With careful analysis and the help from EMMER, you find paitents in
+             arm 1 have better prognosis than that of the paitents in arm 2. Now,
+             you want to test if the combination of immunotherapy X and antibiotic Y
+             also works on cancer B and C. If so, does the better prognosis is some
+             how correlates to the removal of targeted microbes.
+
+             group:
+             1. cancer A paitents recieve immunotherapy X and antibiotic Y
+             2. cancer A paitents recieve immunotherapy X and but not antibiotic Y
+             3. cancer B paitents recieve immunotherapy X and antibiotic Y
+             4. cancer B paitents recieve immunotherapy X and but not antibiotic Y
+             5. cancer C paitents recieve immunotherapy X and antibiotic Y
+             6. cancer C paitents recieve immunotherapy X and but not antibiotic Y
+
+             cluster:
+             1. recieve antibiotic Y
+             2. not recieve antibiotic Y

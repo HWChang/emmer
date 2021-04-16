@@ -27,12 +27,12 @@ class TestRevisitThresholdArgs(unittest.TestCase):
         print('\ntest_RevisitThreshold.getArgsN:')
         print('        case 1: missing args.n setting')
         sys.argv[1:] = ['-m', 'RevisitThreshold']
-        processed_args = BakeCommonArgs(suppress = True, test = False, silence = False)
+        processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
         processed_args.getHomeKeepingArgs()
 
         with self.assertRaises(ErrorCode13):
             revisit_threshold_args = RevisitThresholdArgs(args = processed_args.args, current_wd = '', suppress = True, silence = False)
-            revisit_threshold_args.getArgsN()
+            revisit_threshold_args.getArgsE()
         print('===========================================================')
 
 
@@ -40,7 +40,7 @@ class TestRevisitThresholdArgs(unittest.TestCase):
         print('\ntest_RevisitThreshold.getArgsI:')
         print('        case 1: missing args.i setting')
         sys.argv[1:] = ['-m', 'RevisitThreshold']
-        processed_args = BakeCommonArgs(suppress = True, test = False, silence = False)
+        processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
         processed_args.getHomeKeepingArgs()
 
         with self.assertRaises(ErrorCode14):
@@ -53,7 +53,7 @@ class TestRevisitThresholdArgs(unittest.TestCase):
         print('\ntest_RevisitThreshold.getArgsUTL:')
         print('        case 1: have no args.l, args.u, and args.t setting')
         sys.argv[1:] = ['-m', 'RevisitThreshold']
-        processed_args = BakeCommonArgs(suppress = True, test = False, silence = False)
+        processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
         processed_args.getHomeKeepingArgs()
 
         with self.assertRaises(ErrorCode18):
@@ -287,6 +287,9 @@ class TestRevisitThreshold(unittest.TestCase):
         output_file_name = 'test.csv'
         print('        current_vNE_group_set_number: 1')
         current_vNE_group_set_number = 1
+        print('    normalize: False')
+        normalize = False
+
         if os.cpu_count() > 1:
             num_cpu = os.cpu_count() - 1
             print(f'    num_cpu: {num_cpu}')
@@ -299,7 +302,7 @@ class TestRevisitThreshold(unittest.TestCase):
             revisit_threshold = RevisitThreshold(GetFiles_class_v = detail_vNE, GetFiles_class_i = data_file,
                                                  tuple_t = tuple_t, tuple_u = tuple_u, tuple_l = tuple_l,
                                                  output_file_name = output_file_name, num_cpu = num_cpu,
-                                                 suppress = True)
+                                                 normalize = normalize, suppress = True)
 
 
     def test_singleFile(self):
@@ -339,9 +342,13 @@ class TestRevisitThreshold(unittest.TestCase):
             num_cpu = 1
             print('    your computer only have one CPU; unable to test multiprocessing function')
 
+        print('    normalize: False')
+        normalize = False
+
         revisit_threshold = RevisitThreshold(GetFiles_class_v = detail_vNE, GetFiles_class_i = data_file,
                                              tuple_t = tuple_t, tuple_u = tuple_u, tuple_l = tuple_l,
-                                             output_file_name = output_file_name, num_cpu = num_cpu)
+                                             output_file_name = output_file_name, num_cpu = num_cpu,
+                                             normalize = normalize)
 
         revisit_threshold.current_vNE_group = []
         target = revisit_threshold.detail_vNE_group_set[current_vNE_group_set_number]
@@ -362,7 +369,8 @@ class TestRevisitThreshold(unittest.TestCase):
 
         revisit_threshold = RevisitThreshold(GetFiles_class_v = detail_vNE, GetFiles_class_i = data_file,
                                              tuple_t = tuple_t, tuple_u = tuple_u, tuple_l = tuple_l,
-                                             output_file_name = output_file_name, num_cpu = num_cpu)
+                                             output_file_name = output_file_name, num_cpu = num_cpu,
+                                             normalize = normalize)
 
         revisit_threshold.current_vNE_group = []
         target = revisit_threshold.detail_vNE_group_set[current_vNE_group_set_number]
@@ -444,10 +452,13 @@ class TestRevisitThreshold(unittest.TestCase):
             print('    num_cpu: 1')
             num_cpu = 1
             print('    your computer only have one CPU; unable to test multiprocessing function')
+        print('    normalize: False')
+        normalize = False
 
         revisit_threshold = RevisitThreshold(GetFiles_class_v = detail_vNE, GetFiles_class_i = data_file,
                                              tuple_t = tuple_t, tuple_u = tuple_u, tuple_l = tuple_l,
-                                             output_file_name = output_file_name, num_cpu = num_cpu)
+                                             output_file_name = output_file_name, num_cpu = num_cpu,
+                                             normalize = normalize)
 
         revisit_threshold.singleGroup(current_vNE_group_set_number = current_vNE_group_set_number,
                                       current_u_level = current_u_level, current_l_level = current_l_level,
@@ -471,7 +482,8 @@ class TestRevisitThreshold(unittest.TestCase):
 
         revisit_threshold = RevisitThreshold(GetFiles_class_v = detail_vNE, GetFiles_class_i = data_file,
                                              tuple_t = tuple_t, tuple_u = tuple_u, tuple_l = tuple_l,
-                                             output_file_name = output_file_name, num_cpu = num_cpu)
+                                             output_file_name = output_file_name, num_cpu = num_cpu,
+                                             normalize = normalize)
 
         revisit_threshold.singleGroup(current_vNE_group_set_number = current_vNE_group_set_number,
                                       current_u_level = current_u_level, current_l_level = current_l_level,
@@ -522,9 +534,13 @@ class TestRevisitThreshold(unittest.TestCase):
             num_cpu = 1
             print('    your computer only have one CPU; unable to test multiprocessing function')
 
+        print('    normalize: False')
+        normalize = False
+
         revisit_threshold = RevisitThreshold(GetFiles_class_v = detail_vNE, GetFiles_class_i = data_file,
                                              tuple_t = tuple_t, tuple_u = tuple_u, tuple_l = tuple_l,
-                                             output_file_name = output_file_name, num_cpu = num_cpu)
+                                             output_file_name = output_file_name, num_cpu = num_cpu,
+                                             normalize = normalize)
 
         revisit_threshold.iteratesThroughGroupSet(current_u_level = current_u_level,
                                                   current_l_level = current_l_level,
@@ -569,10 +585,13 @@ class TestRevisitThreshold(unittest.TestCase):
         output_file_name = 'test427.csv'
         print('    num_cpu: 1')
         num_cpu = 1
+        print('    normalize: False')
+        normalize = False
 
         revisit_threshold = RevisitThreshold(GetFiles_class_v = detail_vNE, GetFiles_class_i = data_file,
                                              tuple_t = tuple_t, tuple_u = tuple_u, tuple_l = tuple_l,
-                                             output_file_name = output_file_name, num_cpu = num_cpu)
+                                             output_file_name = output_file_name, num_cpu = num_cpu,
+                                             normalize = normalize)
         revisit_threshold.iteratesThroughThresholdSetting()
         output = revisit_threshold.compareBeforeAndAfterDataReduction(current_row = 0)
         my_result = sorted(output[3])
@@ -629,12 +648,15 @@ class TestRevisitThreshold(unittest.TestCase):
             print('    num_cpu: 1')
             num_cpu = 1
             print('    your computer only have one CPU; unable to test multiprocessing function')
+        print('    normalize: False')
+        normalize = False
 
         start_time = time.time()
 
         revisit_threshold = RevisitThreshold(GetFiles_class_v = detail_vNE, GetFiles_class_i = data_file,
                                              tuple_t = tuple_t, tuple_u = tuple_u, tuple_l = tuple_l,
-                                             output_file_name = output_file_name, num_cpu = num_cpu)
+                                             output_file_name = output_file_name, num_cpu = num_cpu,
+                                             normalize = normalize)
 
         revisit_threshold.iteratesThroughThresholdSetting()
 
@@ -669,9 +691,13 @@ class TestRevisitThreshold(unittest.TestCase):
             num_cpu = 1
             print('    your computer only have one CPU; unable to test multiprocessing function')
 
+        print('    normalize: False')
+        normalize = False
+
         revisit_threshold = RevisitThreshold(GetFiles_class_v = detail_vNE, GetFiles_class_i = data_file,
                                              tuple_t = tuple_t, tuple_u = tuple_u, tuple_l = tuple_l,
-                                             output_file_name = output_file_name, num_cpu = num_cpu)
+                                             output_file_name = output_file_name, num_cpu = num_cpu,
+                                             normalize = normalize)
 
         revisit_threshold.iteratesThroughThresholdSetting()
         my_result = list(revisit_threshold.threshold_setting_result['info_to_ori_disparity'].isnull())
@@ -711,10 +737,13 @@ class TestRevisitThreshold(unittest.TestCase):
         output_file_name = 'test570.csv'
         print('    num_cpu: 1')  # order matters in this case
         num_cpu = 1
+        print('    normalize: False')
+        normalize = False
 
         revisit_threshold = RevisitThreshold(GetFiles_class_v = detail_vNE, GetFiles_class_i = data_file,
                                              tuple_t = tuple_t, tuple_u = tuple_u, tuple_l = tuple_l,
-                                             output_file_name = output_file_name, num_cpu = num_cpu)
+                                             output_file_name = output_file_name, num_cpu = num_cpu,
+                                             normalize = normalize)
 
         revisit_threshold.iteratesThroughThresholdSetting()
         revisit_threshold.compareSettings()
@@ -756,12 +785,14 @@ class TestRevisitThreshold(unittest.TestCase):
             print('    num_cpu: 1')
             num_cpu = 1
             print('    your computer only have one CPU; unable to test multiprocessing function')
+        print('    normalize: False')
+        normalize = False
 
         with self.assertRaises(ErrorCode27):
             revisit_threshold = RevisitThreshold(GetFiles_class_v = detail_vNE, GetFiles_class_i = data_file,
                                                  tuple_t = tuple_t, tuple_u = tuple_u, tuple_l = tuple_l,
                                                  output_file_name = output_file_name, num_cpu = num_cpu,
-                                                 suppress = True)
+                                                 normalize = normalize, suppress = True)
 
             revisit_threshold.iteratesThroughThresholdSetting()
             out = revisit_threshold.compareSettings()

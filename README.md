@@ -3,7 +3,9 @@ Entropy-based Method for Microbial Ecology Research (EMMER)
 
 
 ## About
-Version: 0.9 
+Version: 0.9.1 (under development)
+
+Description: Python package (pre-deploy)
 
 Key features:
 1. Applying SVD to calculate the transformation matrix and unlock potential applications of EMMER
@@ -93,9 +95,22 @@ python3 -m emmer.harvest.py emmer.py -i my_metagenomic_tpm_data/ \
 ```
 In this example, user wish to applied EMMER on a filtered metagenomics dataset. Because the user already filter the data, args.f (-f) is set at 'None' to prevent additional data filtering.  
 
+## Future updates
+### Plans for v0.9 update:
+1. Depreciated MinDataLostFilter -> OK
+2. Automatically generate notebook when running emmer.bake  -> OK (permanova)
+3. Organize data for test and tutorial
+4. Automatically remove files generated during testing -> OK
+5. Issue warning/input before initiate test -> OK
+6. Extend notebook to cover tests
+7. (0.9.1) Allow cor = T (emmer.harvest: OK; emmer.bake: not OK)
 
 ### Objectives for v1:
-1. Official release of EMMER 
+1. Official release of EMMER on github
 
 ## TODO:
-1. Rename 'MinDataLostFilter'
+1. For 3D plot: export azimuth and elevation information
+# https://stackoverflow.com/questions/23424282/how-to-get-azimuth-and-elevation-from-a-matplotlib-figure
+
+2. PCoA
+# https://www.geeksforgeeks.org/ml-principal-component-analysispca/

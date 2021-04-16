@@ -24,7 +24,7 @@ class TestPermanovaArgs(unittest.TestCase):
         sys.argv[1:] = ['-m', 'Permanova', '-i', 'emmer/data/bake_data_dir_6/filtered_infoRich__PCA_coordinates.csv',
                         '-p', 'emmer/data/bake_data_dir_6/_retrospect_permanova_parameter.csv']
         current_wd = os.getcwd()
-        processed_args = BakeCommonArgs(suppress = True, test = False, silence = False)
+        processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
         processed_args.getHomeKeepingArgs()
 
         permanova_args = PermanovaArgs(args = processed_args.args, current_wd = current_wd,
@@ -37,7 +37,7 @@ class TestPermanovaArgs(unittest.TestCase):
         print('             1.2: no args.i nor args.p')
         sys.argv[1:] = ['-m', 'Permanova']
         current_wd = os.getcwd()
-        processed_args = BakeCommonArgs(suppress = True, test = False, silence = False)
+        processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
         processed_args.getHomeKeepingArgs()
 
         with self.assertRaises(ErrorCode8):
@@ -48,7 +48,7 @@ class TestPermanovaArgs(unittest.TestCase):
         print('        case 2: expect to work')
         sys.argv[1:] = ['-m', 'Permanova', '-p', 'emmer/data/bake_data_dir_6/_retrospect_permanova_parameter.csv']
         current_wd = os.getcwd()
-        processed_args = BakeCommonArgs(suppress = True, test = False, silence = False)
+        processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
         processed_args.getHomeKeepingArgs()
 
         permanova_args = PermanovaArgs(args = processed_args.args, current_wd = current_wd,
