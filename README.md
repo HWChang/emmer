@@ -4,6 +4,7 @@ EMMER (Entropy-based Method for Microbial Ecology Research) is a feature selecti
 
 ### About
 Version: 1.0
+
 Developer/Maintainer: Hao-Wei Chang (email: emmer.man42@gmail.com)
 
 
