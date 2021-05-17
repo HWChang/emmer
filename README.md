@@ -20,5 +20,4 @@ python3 -m emmer.bake -g
 ### License
 BSD 3-Clause License
 
-### Citation
-Gut microbiome contributions to altered metabolism in a pig model of undernutrition
+
