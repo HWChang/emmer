@@ -1,8 +1,6 @@
 ## EMMER
 EMMER (Entropy-based Method for Microbial Ecology Research) is a feature selection algorithm (Fig. 1).
 
-![Fig. 1](https://drive.google.com/file/d/1XItH93WrggoqUP21qfkxBse_V23JXlgu/view?usp=sharing)
-
 ### About
 Version: 1.0
 
