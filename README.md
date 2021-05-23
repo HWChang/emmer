@@ -14,7 +14,7 @@ We named this algorithm EMMER, which stands for Entropy-based Method for Microbi
 - **Version:** 1.0
 - **License:** BSD 3-Clause License
 - **Developer/Maintainer:** Hao-Wei Chang (email: emmer.man42@gmail.com)
-- **Citation:** H.-W. Chang et al., Gut microbiome contributions to altered metabolism in a pig model of undernutrition. (2021) _Proc Natl Acad Sci U S A._ **118**, e2024446118.
+- **Citation:** H.-W. Chang et al., Gut microbiome contributions to altered metabolism in a pig model of undernutrition. (2021) _Proc Natl Acad Sci U S A._ **118**, e2024446118. [here](https://www.pnas.org/content/118/21/e2024446118)
 
 
 ---
