@@ -23,16 +23,23 @@ cd where_you_want_to_store_the_script
 git clone https://github.com/HWChang/emmer.git
 ```
 
-You will see a new folder called ```bash emmer``` after the download.
+You will see a new folder called ```emmer``` appear in after ```where_you_want_to_store_the_script``` the download.
 
 
 ## Usage
-Go to the directory where you store ```bash emmer```
+Go to the directory where you store ```emmer```
 
 ```bash
 cd where_you_want_to_store_the_script
 ```
 
+Analyze your data with EMMER usually takes three steps. First, we analyze your input data with the default setting and see if it works. Then, we can do a parameter sweep to optimize the setting. After parameter sweep, we reanalyze your input data with the optimized setting.
 
+We will use ```emmer.harvest``` module for the first and the third step, and use ```emmer.bake``` module for parameter sweep and additional analyses. To learn more about different arguments in each of those modules, please use the following command:
+
+```bash
 python3 -m emmer.harvest -g
 python3 -m emmer.bake -g
+```
+
+An example input for EMMER can be found under
