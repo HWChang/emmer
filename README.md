@@ -25,7 +25,6 @@ git clone https://github.com/HWChang/emmer.git
 ```
 
 
-
 ## Usage
 ```bash
 cd where_you_want_to_store_the_script
