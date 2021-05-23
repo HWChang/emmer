@@ -7,7 +7,7 @@ EMMER is a feature selection algorithm that
 
 
 **Why call it EMMER?**
-EMMER stands for Entropy-based Method for Microbial Ecology Research. We originally designed this algorithm for microbiota/microbiome studies.(please refer to our PNAS paper for example; ![here](https://www.pnas.org/content/118/21/e2024446118)).
+EMMER stands for Entropy-based Method for Microbial Ecology Research. We originally designed this algorithm for microbiota/microbiome studies.(please refer to our PNAS paper for example; [here](https://www.pnas.org/content/118/21/e2024446118)).
 
 
 ### About
