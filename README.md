@@ -42,4 +42,21 @@ python3 -m emmer.harvest -g
 python3 -m emmer.bake -g
 ```
 
-An example input for EMMER can be found under
+EMMER expect csv file(s) looks like files in:
+```bash
+emmer/data/data_dir_3/
+```
+
+Each csv file store a input data matrix, where each row is a sample and each column is a measurements. Each cell in the matrix is a number. Please note EMMER expect the matrix to have row names and column names. Please do not include "__" in your row names.
+
+After prepare all your input file, you can run EMMER with the default setting
+
+```bash
+python3 -m emmer.harvest -i emmer/data/data_dir_3 -f 'HardFilter' -u 2 -l 2 -t 2 -d 0.001 -z 0.33 -r
+```
+
+In this command:
+1. ```-i```: Input directory that contains one or many csv files or a path to specific csv file.
+2. ```-f```: Filter data before run EMMER. Currently, EMMER offers two options ```'HardFilter'``` or ```'None'```. Please use ```python3 -m emmer.harvest -g``` to get more information on those two options.
+3. ```-d```, ```-z```: Additional arguments when choose to use  ```-f 'HardFilter'```. ```-d``` determines the detection limit. Any number low the limit of detection will be set as 0. ```-z``` should be a number less than 1 but greater than 0. This number represents the maximum fraction of element in each column of your input matrix that can be zero.
+4. ```-u```, ```-l```, ```-t```: Parameters for feature selection. Briefly, ```-u``` and ```-l``` set the upper and lower limit when choosing information-rich features. ```-t``` many times a feature need to be nominate as information-rich feature in jackknift subsampling to be included in the final list of information-rich features. Please note EMMER expect a integer for ```-t``` that is less than the number of row in your input data matrix.

@@ -109,7 +109,7 @@ def tutorial():
 
     Conditionally requried:
     -z, Z, zeroToleranceLevel
-                       Must be a less than 1 but greater than 0 number. The number represents the maximum
+                       Must be a less than 1 but greater than 0. The number represents the maximum
                        fraction of element in each column of your input matrix that can be zero. Column that
                        exceeds this threshold will be remove before information-rich feature calling.
 
