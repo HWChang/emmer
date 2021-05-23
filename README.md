@@ -47,7 +47,7 @@ EMMER expect csv file(s) looks like files in:
 emmer/data/data_dir_3/
 ```
 
-Each csv file store a input data matrix, where each row is a sample and each column is a measurements. Each cell in the matrix is a number. Please note EMMER expect the matrix to have row names and column names. Please do not include "__" in your row names.
+Each csv file store a input data matrix, where each row is a sample and each column is a measurements. Each cell in the matrix is a number. Please note EMMER expect the matrix to have row names and column names. Please do not include "__" (double underscore) in your row names.
 
 After prepare all your input file, you can run EMMER with the default setting
 
@@ -62,4 +62,4 @@ In this command:
 4. ```-d```, ```-z```: Additional arguments when choose to use  ```-f 'HardFilter'```. ```-d``` determines the detection limit. Any number low the limit of detection will be set as 0. ```-z``` should be a number less than 1 but greater than 0. This number represents the maximum fraction of element in each column of your input matrix that can be zero. Any column (measurements) contains more 0 than ```-z``` will be remove before running EMMER.
 5. ```-u```, ```-l```, ```-t```: Parameters for feature selection. Briefly, ```-u``` and ```-l``` set the upper and lower limit when choosing information-rich features. ```-t``` many times a feature need to be nominate as information-rich feature in jackknife subsampling to be included in the final list of information-rich features. Please note EMMER expect a integer for ```-t``` that is less than the number of row in your input data matrix.
 
-**Note:** When using ```-r```, ```-f 'HardFilter'```, ```-d```, and ```-z``` together in your command, the order of execution when running EMMER is: ```-r``` -> ```-f 'HardFilter'``` -> ```-d``` -> ```-z```
+  **Note:** When using ```-r```, ```-f 'HardFilter'```, ```-d```, and ```-z``` together in your command, the order of execution when running EMMER is: ```-r``` -> ```-f 'HardFilter'``` -> ```-d``` -> ```-z```
