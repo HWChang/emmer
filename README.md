@@ -1,12 +1,13 @@
 ## EMMER: a feature selection algorithm for Principal Component Analysis
 
 ### What is EMMER?
-EMMER is a feature selection algorithm that
+EMMER is a feature selection algorithm that reduces the number of measurements in a matrix while allowing this new matrix to retains a similar data distribution on a PCA plot 
 
 ![Figure 1. What EMMER can do?](https://drive.google.com/uc?id=1m2O658NZMInmYYlyI9AdUuz2hbg14U6X)
 
 
 **Why call it EMMER?**
+
 EMMER stands for Entropy-based Method for Microbial Ecology Research. We originally designed this algorithm for microbiota/microbiome studies.(please refer to our PNAS paper for example; [here](https://www.pnas.org/content/118/21/e2024446118)).
 
 
