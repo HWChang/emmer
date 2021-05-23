@@ -85,7 +85,7 @@ def tutorial():
     2. Report the reproducibilty of information-rich feature calling
        python3 -m emmer.harvest -i emmer/data/data_dir_3 -f 'HardFilter' -u 2 -l 2 -t 2 -d 0.001 -z 0.33 -r
     3. Fine tuning your thresholds
-       python3 -m emmer.bake -m 'RevisitThreshold' -u 2.5,1.5,0.25 -l 2.5,1.5,0.25 -t 2,2,0 -n output/detail_vNE/ -i output/filtered_data/
+       python3 -m emmer.bake -m 'RevisitThreshold' -u 2.5,1.5,0.25 -l 2.5,1.5,0.25 -t 2,2,0 -e output/detail_vNE/ -i output/filtered_data/
     4. Redo analysis with the suggested information-rich feature calling thresholds
 
     [Picture paints a thousand words/Significant p value made my day]

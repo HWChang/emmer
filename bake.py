@@ -84,7 +84,7 @@ def tutorial(self):
        -i I               An emmer.harvest-gereated csv file that stores information-rich feature calling reproducibility
     ------------------------------------------------------------
     4. RevisitThreshold mode:
-       python3 -m emmer.bake -m 'RevisitThreshold' -u 2.5,1.5,0.25 -l 2.5,1.5,0.25 -t 2,2,0 -n output/detail_vNE/ -i output/filtered_data/
+       python3 -m emmer.bake -m 'RevisitThreshold' -u 2.5,1.5,0.25 -l 2.5,1.5,0.25 -t 2,2,0 -e output/detail_vNE/ -i output/filtered_data/
 
        -u U               Revisit args.u (-u) setting in EMMER. Expect a three-element tuple. Example: 3,1,1 (upper bondary,
                           lower bondary, increment)
@@ -277,7 +277,7 @@ if __name__ == '__main__':
 
 
 ##--4--## model = 'RevisitThreshold'
-    # python3 -m emmer.bake -m 'RevisitThreshold' -u 2.5,1.5,0.25 -l 2.5,1.5,0.25 -n output/detail_vNE/ -i output/filtered_data/
+    # python3 -m emmer.bake -m 'RevisitThreshold' -u 2.5,1.5,0.25 -l 2.5,1.5,0.25 -e output/detail_vNE/ -i output/filtered_data/
     if common_args.selected_model == 'RevisitThreshold':
         revisitThresholdResult(args = common_args.args, current_wd = current_wd, retrospect_dir = retrospect_dir,
                                output_file_tag = common_args.output_file_tag, suppress = False, silence = False)
