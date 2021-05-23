@@ -83,3 +83,7 @@ The result of this parameter sweep will appear on the terminal. In this case, th
 ```Suggested threshold setting: -u 1.5 -l 1.5 -t 2.0```
 
 Use the suggest threshold setting and rerun ```emmer.harvest``` module.
+
+```bash
+python3 -m emmer.harvest -i emmer/data/data_dir_3 -f 'HardFilter' -u 1.5 -l 1.5 -t 2 -d 0.001 -z 0.33 -r
+```
