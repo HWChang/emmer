@@ -104,7 +104,7 @@ def tutorial():
     -l L               Lower limit when choosing information-rich feature. Default: 1. When set as 1, the
                        lower limitation is 1 standard deviation from the mean of the von Neumann entropies
                        of all remove-one-column matrices.
-    -t T               How many times a feature need to be nominate as information-rich feature in jackknift
+    -t T               How many times a feature need to be nominate as information-rich feature in jackknife
                        subsampling to be included in the final list of information-rich features.
 
     Conditionally requried:
