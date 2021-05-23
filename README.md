@@ -1,13 +1,10 @@
-# EMMER: a feature selection algorithm for Principal Component Analysis
+## EMMER: a feature selection algorithm for Principal Component Analysis
 
-## What is EMMER?
+### What is EMMER?
+![Figure 1. What EMMER can do?](https://drive.google.com/uc?id=1m2O658NZMInmYYlyI9AdUuz2hbg14U6X)
 
 EMMER (Entropy-based Method for Microbial Ecology Research) is a feature selection algorithm.
 
-
-![Figure 1. What EMMER can do?](https://drive.google.com/file/d/1m2O658NZMInmYYlyI9AdUuz2hbg14U6X/view?usp=sharing)
-
-![Figure 1. What EMMER can do?](https://drive.google.com/uc?id=1m2O658NZMInmYYlyI9AdUuz2hbg14U6X)
 
 
 
