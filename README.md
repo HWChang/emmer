@@ -5,9 +5,7 @@ EMMER, which stands for Entropy-based Method for Microbial Ecology Research, is 
 
 ![Figure 1. What EMMER can do?](https://drive.google.com/uc?id=1m2O658NZMInmYYlyI9AdUuz2hbg14U6X)
 
-
 We named this algorithm EMMER, which stands for Entropy-based Method for Microbial Ecology Research, because we originally developed this algorithm to processing data from microbiota/microbiome studies. Later we realize this algorithm has wider application because the EMMER algorithm and PCA share the same mathematical procedure.
-
 
 
 ## About
@@ -19,17 +17,22 @@ We named this algorithm EMMER, which stands for Entropy-based Method for Microbi
   2. [SI Appendix; how EMMER algorithm works](https://www.pnas.org/content/pnas/suppl/2021/05/14/2024446118.DCSupplemental/pnas.2024446118.sapp.pdf)
 
 
-
 ## Download
 ```bash
 cd where_you_want_to_store_the_script
 git clone https://github.com/HWChang/emmer.git
 ```
 
+You will see a new folder called ```bash emmer``` after the download.
+
 
 ## Usage
+Go to the directory where you store ```bash emmer```
+
 ```bash
 cd where_you_want_to_store_the_script
+```
+
+
 python3 -m emmer.harvest -g
 python3 -m emmer.bake -g
-```
