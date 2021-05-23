@@ -46,9 +46,9 @@ class TestProjection(unittest.TestCase):
         # row: feature; col: principal components
 
         my_result = pandas.DataFrame(numpy.round(-projection[:, 0:2], decimals = 5))
-        expected_result = pandas.DataFrame([[ 0.12439, -0.28011],
-                                            [ 0.35851,  0.20217],
-                                            [-0.48290,  0.07794]])  ## can also be validated in R; prcomp(A, scale = F)$x  # note: flip sign
+        expected_result = pandas.DataFrame([[-0.12439, 0.28011],
+                                            [-0.35851, -0.20217],
+                                            [ 0.48290, -0.07794]])  ## can also be validated in R; prcomp(A, scale = F)$x  # note: flip sign
         assert_frame_equal(my_result, expected_result)
 
 
@@ -67,7 +67,7 @@ class TestProjection(unittest.TestCase):
         print('        Case 4.1: matrixU itself')
         my_result = list(MatrixA_for_transformation.U[:, 0])
 
-        expected_result = [-0.20254078, -0.58373539, 0.78627618]
+        expected_result = [0.20254078, 0.58373539, -0.78627618]
         numpy.testing.assert_almost_equal(my_result, expected_result)
 
 
@@ -125,10 +125,11 @@ class TestProjection(unittest.TestCase):
         MatrixC_for_transformation = Projection(merged_dataframe = C_df, normalize = True)
         my_result = numpy.array(MatrixC_for_transformation.projection_df)
 
-        expected_result = numpy.array([[ 0.3329589, 1.4108734,-3.816392e-16],
-                                       [-1.7064763,-0.4766556,-1.325329e-15],
-                                       [ 1.3735174,-0.9342178, 1.963707e-15]])  ## can also be validated in R; prcomp(A, scale = F)$x  # note: flip sign
+        expected_result = numpy.array([[-0.3329589,-1.4108734, 3.816392e-16],
+                                       [ 1.7064763, 0.4766556, 1.325329e-15],
+                                       [-1.3735174, 0.9342178,-1.963707e-15]])  ## can also be validated in R; prcomp(A, scale = F)$x  # note: flip sign
         numpy.testing.assert_almost_equal(my_result, expected_result)
+
 
 if __name__ == '__main__':
     unittest.main()
