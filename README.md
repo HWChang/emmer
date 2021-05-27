@@ -1,9 +1,8 @@
 # EMMER: Simplify the Input for Principal Component Analysis
 
-## What is EMMER?
-EMMER, which stands for Entropy-based Method for Microbial Ecology Research, is **a feature selection algorithm that reduces the number of measurements in a matrix while allowing this new matrix to retains a similar data distribution on a PCA plot** (**Fig. 1**; you can also view the figure [here](https://drive.google.com/file/d/1m2O658NZMInmYYlyI9AdUuz2hbg14U6X/view?usp=sharing)).
+EMMER, which stands for Entropy-based Method for Microbial Ecology Research, is a feature selection algorithm that reduces the number of measurements in a matrix while allowing this new matrix to retains a similar data distribution on a Principal Component Analysis (PCA) plot (see Fig. 1; [view figure](https://drive.google.com/file/d/1m2O658NZMInmYYlyI9AdUuz2hbg14U6X/view?usp=sharing)).
 
-We named this algorithm EMMER because we originally developed this algorithm to processing data from microbiota/microbiome studies. Later we realize this algorithm has wider application because the shared mathematical procedure between EMMER algorithm and PCA share.
+We named this algorithm EMMER because it was originally developed to processing microbiota and microbiome datasets. Later, we realize this algorithm has a wider application because the shared mathematical procedure between EMMER algorithm and PCA
 
 ![Figure 1. What EMMER can do?](https://drive.google.com/uc?id=1m2O658NZMInmYYlyI9AdUuz2hbg14U6X)
 **Fig 1. What EMMER can do?** 
