@@ -17,5 +17,6 @@ We named this algorithm EMMER because we originally developed this algorithm to 
   2. [SI Appendix; how EMMER algorithm works](https://www.pnas.org/content/pnas/suppl/2021/05/14/2024446118.DCSupplemental/pnas.2024446118.sapp.pdf)
 
 
+## Usage
 **Please refer to the wiki page for detailed information about download, dependency, and tutorial.**
 
