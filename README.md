@@ -15,5 +15,5 @@ EMMER, which stands for Entropy-based Method for Microbial Ecology Research, is 
 
 
 ## Usage
-**Please refer to the wiki page for detailed information about download, dependency, and tutorial.**
+**Please refer to the [wiki](https://github.com/HWChang/emmer/wiki) page for detailed information about download, dependency, and tutorial.**
 
