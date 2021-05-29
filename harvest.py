@@ -26,7 +26,7 @@ import sys
 import os
 
 start_time = time.time()
-__version__ = '1.0'
+__version__ = '1.0.1'
 
 """
 Take user-defined args and run emmer
@@ -710,33 +710,12 @@ def sanityCheck(EMMER_class, input_file_names, current_filter, notebook_name, ne
                 notebook.updateProcrustesResult(procrustes_score = '', which_dataset = '', no_procrustes_score = True)
 
 
-#        original_projection = numpy.array(Projection_class_in_list[0].projection_df.iloc[:, 0:3])
-#
-#        for p in range(6):
-#            Projection_class_in_list[p].projection_df.to_csv(output_file_name_in_list[p])
-#
-#            new_projection = numpy.array(Projection_class_in_list[p].projection_df.iloc[:, 0:3])
-#            #if 'PC3' not in Projection_class_in_list[p].projection_df: TODO:
-#            #    new_projection_df = Projection_class_in_list[p].projection_df.iloc[:, 0:2]
-#            #    r, c = new_projection_df.shape
-#            #    new_projection_df.iloc[3] = [0] * r
-#            #    new_projection = numpy.array(new_projection_df)
-#            #else:
-#            #    new_projection = numpy.array(Projection_class_in_list[p].projection_df.iloc[:, 0:3])
-#            notebook = UpdateNoteBook(notebook_name = notebook_name, neglect = neglect)
-#            if new_projection.size != 0:
-#                mtx1, mtx2, disparity = procrustes(original_projection, new_projection)
-#                notebook.updateProcrustesResult(procrustes_score = disparity, which_dataset = dataset_list[p], no_procrustes_score = False)
-#            else:
-#                notebook.updateProcrustesResult(procrustes_score = '', which_dataset = '', no_procrustes_score = True)
-
-
     else:
-        Projection_class_in_list = [mergeDataFrame(EMMER_class = EMMER_class, select = 'pre_filter', file_name_list = emmer_result.pre_filter_data_file_names,
+        Projection_class_in_list = [mergeDataFrame(EMMER_class = EMMER_class, select = 'pre_filter', file_name_list = emmer_result.pre_filter_data_file_names, normalize = normalize,
                                                    info_rich_list = emmer_result.collections_of_info_rich_features, notebook_name = notebook_name, neglect = neglect),
-                                    mergeDataFrame(EMMER_class = EMMER_class, select = 'filtered_no_infoRich', file_name_list = emmer_result.clean_df_file_names,
+                                    mergeDataFrame(EMMER_class = EMMER_class, select = 'filtered_no_infoRich', file_name_list = emmer_result.clean_df_file_names, normalize = normalize,
                                                    info_rich_list = emmer_result.collections_of_info_rich_features, notebook_name = notebook_name, neglect = neglect),
-                                    mergeDataFrame(EMMER_class = EMMER_class, select = 'filtered_infoRich', file_name_list = emmer_result.clean_df_file_names,
+                                    mergeDataFrame(EMMER_class = EMMER_class, select = 'filtered_infoRich', file_name_list = emmer_result.clean_df_file_names, normalize = normalize,
                                                    info_rich_list = emmer_result.collections_of_info_rich_features, notebook_name = notebook_name, neglect = neglect)]
         input_file_in_list_of_list = [input_file_names]
         output_file_name_in_list = [(EMMER_class.output_file_tag + '__pre_filter_projection.csv'),
@@ -744,29 +723,8 @@ def sanityCheck(EMMER_class, input_file_names, current_filter, notebook_name, ne
                                     (EMMER_class.output_file_tag + '__filtered_infoRich_projection.csv')]
         index_tag_list = ['__pre_filter_projection.csv', '__filtered_no_infoRich_projection.csv', '__filtered_infoRich_projection.csv']
         dataset_list = ['pre_filter', 'filtered_no_infoRich', 'filtered_infoRich']
-#        original_projection = numpy.array(Projection_class_in_list[0].projection_df.iloc[:, 0:3])
-#
-#        for p in range(3):
-#            Projection_class_in_list[p].projection_df.to_csv(output_file_name_in_list[p])
-#            new_projection = numpy.array(Projection_class_in_list[p].projection_df.iloc[:, 0:3])
-#
-#            # FIXME
-#            #if 'PC3' not in Projection_class_in_list[p].projection_df:
-#            #    new_projection_df = Projection_class_in_list[p].projection_df.iloc[:, 0:2]
-#            #    r, c = new_projection_df.shape
-#            #    new_projection_df.iloc[3] = [0] * r
-#            #    new_projection = numpy.array(new_projection_df)
-#            #else:
-#            #    new_projection = numpy.array(Projection_class_in_list[p].projection_df.iloc[:, 0:3])
-#            notebook = UpdateNoteBook(notebook_name = notebook_name, neglect = neglect)
-#            if new_projection.size != 0:
-#                mtx1, mtx2, disparity = procrustes(original_projection, new_projection)
-#                notebook.updateProcrustesResult(procrustes_score = disparity, which_dataset = dataset_list[p], no_procrustes_score = False)
-#            else:
-#                notebook.updateProcrustesResult(procrustes_score = '', which_dataset = '', no_procrustes_score = True)
 
 
-        # works, but need unittest
         for p in range(3):
             Projection_class_in_list[p].projection_df.to_csv(output_file_name_in_list[p])
 
