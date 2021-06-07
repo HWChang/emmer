@@ -22,7 +22,7 @@ PIEMMER is a python package that implement EMMER algorithm.
 
 
 ## Download and Usage
-###Option 1 - Anaconda or Pypi###
+### Option 1 - Anaconda or Pypi ###
 ```bash
 conda install -c bioconda piemmer
 ```
@@ -48,7 +48,7 @@ python3 -m piemmer.harvest -g
 python3 -m piemmer.bake -g
 ```
 
-###Option 2 - Download from github###
+### Option 2 - Download from github ###
 ```bash
 cd where_you_what_to_store_your_file
 git clone https://github.com/HWChang/emmer.git
