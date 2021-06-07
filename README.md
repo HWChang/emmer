@@ -22,26 +22,13 @@ PIEMMER is a python package that implement EMMER algorithm.
 
 
 ## Download and Usage
-Option 1 - Anaconda
+###Option 1 - Anaconda or Pypi###
 ```bash
 conda install -c bioconda piemmer
 ```
-
-Option 2 - Pypi
+or
 ```bash
 pip install piemmer
-```
-
-Option 3 - Download from github
-```bash
-cd where_you_what_to_store_your_file
-git clone https://github.com/HWChang/emmer.git
-
-# when directly using the scripts download from github
-# change the beginning of the command from
-python3 -m piemmer.harvest -g
-# to
-python3 -m emmer.harvest -g
 ```
 
 Get the location of example files that were included in the package
@@ -60,5 +47,18 @@ cd where_your_what_to_put_the_output_files
 python3 -m piemmer.harvest -g
 python3 -m piemmer.bake -g
 ```
+
+###Option 2 - Download from github###
+```bash
+cd where_you_what_to_store_your_file
+git clone https://github.com/HWChang/emmer.git
+
+# when directly using the scripts download from github
+# change the beginning of the command from
+python3 -m piemmer.harvest -g
+# to
+python3 -m emmer.harvest -g
+```
+
 
 **Please refer to the [wiki](https://github.com/HWChang/emmer/wiki) page for detailed information about download, dependency, and tutorial.**
