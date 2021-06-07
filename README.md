@@ -46,7 +46,7 @@ python3 -m emmer.harvest -g
 
 Get the location of example files that were included in the package
 ```bash
-import pkg_resources
+python3
 ```
 ```python3
 import pkg_resources
