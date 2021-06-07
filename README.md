@@ -37,8 +37,11 @@ Option 3 - Download from github
 cd where_you_what_to_store_your_file
 git clone https://github.com/HWChang/emmer.git
 
-# see a folder name emmer appear under where_you_what_to_store_your_file
-mv emmer piemmer
+# when directly using the scripts download from github
+# change the beginning of the command from
+python3 -m piemmer.harvest -g
+# to
+python3 -m emmer.harvest -g
 ```
 
 Get the location of example files that were included in the package
