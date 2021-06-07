@@ -1,5 +1,5 @@
-https://anaconda.org/bioconda/piemmer/badges/installer/conda.svg
-https://anaconda.org/bioconda/piemmer/badges/version.svg
+[conda](https://anaconda.org/bioconda/piemmer/badges/installer/conda.svg)
+[conda version](https://anaconda.org/bioconda/piemmer/badges/version.svg)
 
 # PIEMMER: Simplify the Input for Principal Component Analysis
 
