@@ -1,12 +1,7 @@
 #!/usr/bin/env python3
 
-# Usage:
-# move to one level above emmer/
-# python3 -m emmer.harvest -i emmer/data/data_dir_3 -f 'HardFilter' -u 2 -l 2 -t 2 -d 0.001 -z 0.33 -r
-
 from .main.basic.math import NonDesityMatrix
 from .main.basic.read import GetFiles, RawDataImport
-#from .main.advanced.iteration import MinusOneVNE, MinDataLostFilter, InfoRichCalling, reproducibility, reproducibility_summary, Kernal
 from .main.advanced.iteration import MinusOneVNE, InfoRichCalling, reproducibility, reproducibility_summary, Kernal
 from .posthoc.visual.viewer import Projection, Plot
 from .troubleshoot.warn.warning import *
@@ -26,34 +21,46 @@ import sys
 import os
 
 start_time = time.time()
-__version__ = '1.0.1'
+__version__ = '1.0.5'
 
 """
-Take user-defined args and run emmer
+Python Implementation of EMMER algorithm
 """
 
 ##==1==## define function and class
 def tutorial():
     """
+    ##==0==## About
+    The piemmer package stands for Python-Implementation of the Entropy-based Method for
+    Microbial Ecology Research. Even though the EMMER (Entropy-based Method for Microbial
+    Ecology Research) algorithm was originally designed for analyzing data from microbiota/
+    microbiome studies, this algorithm can be generalized to other dataset.
+
+    For more information, please refer to our wiki page:
+    https://github.com/HWChang/emmer
+
+    Please use EMMER for the name of the algorithm and piemmer for this python package
+
     ##==1==## Expected Data Format
     1. Expected csv file(s). When input multiple csv files as input, those csv files
        needed to be stored under the same folder. That folder should only contains your
        input csv file(s).
     2. Expect to have row names and column header. Examplary input file can be found
-       under 'emmer/data/data_dir_3/'
+       under 'DATA_PATH/data/data_dir_3/'
        row names: sample names
        column headers: feature names
        elements: numeric values with on missing value
-                 (Current version of emmer does not support input matrix with missing
+                 (Current version of piemmer does not support input matrix with missing
                  values. In future update, the missing value will be converted to 0)
+       Note: see section 3 for setting up DATA_PATH
     3. Do not include '__' in your file name or row names
 
     ##==2==## Output Files and Format
     1. output/*_reproducibility.csv
-       Store informaiton-rich feature calling reproducibilty. Emmer will not generate
+       Store informaiton-rich feature calling reproducibilty. piemmer will not generate
        this file when running under QuickLook mode,
     2. output/information_rich_features_summary.csv
-       Generate a summary when emmer working on multiple input files.
+       Generate a summary when piemmer working on multiple input files.
     3. output/*_colmean.csv
        Store means for each feature. Necessary for projecting new observation onto
        the existing PCA space.
@@ -68,29 +75,36 @@ def tutorial():
         refer to the Arugments setions for detail information about settings
 
     ##==3==## Quick Examples
-    1. Input matrix contains counts, but you wish to converted the counts into fractional
-       abundance before conducting your analysis.
-       python3 -m emmer.harvest -i emmer/data/data_dir_3 -f 'HardFilter' -u 2 -l 2 -t 2 -d 0.001 -z 0.33 -r
+    1. If you download from anaconda, you can get the location of our example files by:
+       python3
+       import pkg_resources
+       DATA_PATH = pkg_resources.resource_filename('piemmer', 'data/')
+       DATA_PATH
 
-    2. If you input data contains categorical values and want to conduct PCA by eigendecomposition
+    2. Input matrix contains counts, but you wish to converted the counts into fractional
+       abundance before conducting your analysis.
+       cd where/you/what/to/put/your/output/file
+       python3 -m piemmer.harvest -i DATA_PATH/data/data_dir_3 -f 'HardFilter' -u 2 -l 2 -t 2 -d 0.001 -z 0.33 -r
+
+    3. If you input data contains categorical values and want to conduct PCA by eigendecomposition
        of a correlation matrix.
-       (Current version of emmer does not support this function. Will included in future update)
+       (Current version of piemmer does not support this function. Will included in future update)
 
     ##==4==## Suggested Analytical Flow
     [Time is of the essence]
     1. A quick look
-       python3 -m emmer.harvest -i emmer/data/data_dir_3 -f 'HardFilter' -u 2 -l 2 -d 0.001 -z 0.33 -r -p -q
+       python3 -m piemmer.harvest -i DATA_PATH/data/data_dir_3 -f 'HardFilter' -u 2 -l 2 -d 0.001 -z 0.33 -r -p -q
 
     [Just what to be thorough]
     2. Report the reproducibilty of information-rich feature calling
-       python3 -m emmer.harvest -i emmer/data/data_dir_3 -f 'HardFilter' -u 2 -l 2 -t 2 -d 0.001 -z 0.33 -r
+       python3 -m piemmer.harvest -i DATA_PATH/data/data_dir_3 -f 'HardFilter' -u 2 -l 2 -t 2 -d 0.001 -z 0.33 -r
     3. Fine tuning your thresholds
-       python3 -m emmer.bake -m 'RevisitThreshold' -u 2.5,1.5,0.25 -l 2.5,1.5,0.25 -t 2,2,0 -e output/detail_vNE/ -i output/filtered_data/
+       python3 -m piemmer.bake -m 'RevisitThreshold' -u 2.5,1.5,0.25 -l 2.5,1.5,0.25 -t 2,2,0 -e output/detail_vNE/ -i output/filtered_data/
     4. Redo analysis with the suggested information-rich feature calling thresholds
 
     [Picture paints a thousand words/Significant p value made my day]
-    5. Export emmer.bake for additional options for generating plots and conducting statistical tests
-       python3 -m emmer.bake -g
+    5. Export piemmer.bake for additional options for generating plots and conducting statistical tests
+       python3 -m piemmer.bake -g
 
     ##==5==## Arugments
     Required:
@@ -117,27 +131,27 @@ def tutorial():
     -d D, -detectionLimit
                        Set the detection limit of our method. Must be numeric. Set number in the input
                        matrix that below this detection limit as zero before filtering. When using with -z,
-                       emmer will conduct this step before running -z.
-    -q Q, -quickLook   Default: False. If True, activate QuickLook mode. In QuickLook mode, emmer will not
+                       piemmer will conduct this step before running -z.
+    -q Q, -quickLook   Default: False. If True, activate QuickLook mode. In QuickLook mode, piemmer will not
                        calculate the reproducibility of information-rich feature calling. Default: False.
                        Usage:
-                       python3 -m emmer.harvest <other_arguments_and_inputs> -q
+                       python3 -m piemmer.harvest <other_arguments_and_inputs> -q
     -o O               Expect a string. This string will be tag to all your output file name from the analysis.
-    -r R               Choose this option when you want emmer to convert your input data into fractional abundance.
+    -r R               Choose this option when you want piemmer to convert your input data into fractional abundance.
                        Default: False.
                        Usage:
-                       python3 -m emmer.harvest <other_arguments_and_inputs> -r
+                       python3 -m piemmer.harvest <other_arguments_and_inputs> -r
     -n N, normalize    Choose this option when your features (columns) are measured in different units. When set as True,
                        EMMER will normalize each column the input data by its standard deviation.
                        Default: False.
                        Usage:
-                       python3 -m emmer.harvest <other_arguments_and_inputs> -n
-    -p P, plot         Visualize emmer result with PCA plot(s). Default: False.
-                       (Currently emmer cannot generate PCA plot if it only works on input file. Also,
+                       python3 -m piemmer.harvest <other_arguments_and_inputs> -n
+    -p P, plot         Visualize piemmer result with PCA plot(s). Default: False.
+                       (Currently piemmer cannot generate PCA plot if it only works on input file. Also,
                        user might experience error when generateing 2D PCA plots. These issue will be
                        addressed in future updates)
                        Usage:
-                       python3 -m emmer.harvest <other_arguments_and_inputs> -p
+                       python3 -m piemmer.harvest <other_arguments_and_inputs> -p
                        [!] An interactive plot that allows user to adjust angles. Save the plot as pdf
                            after user close the window.
     -s S, sanityCheck  Generate three or six PCA plots (and their corresponding output csv files) depend on
@@ -151,13 +165,13 @@ def tutorial():
                        6. filtered-out data combined with filtered, non-information-rich data
                           (if filter is not set at 'None')
                        Usage:
-                       python3 -m emmer.harvest <other_arguments_and_inputs> -s
+                       python3 -m piemmer.harvest <other_arguments_and_inputs> -s
     -c C, -cpuNum      Support multiprocessing. This argument is used to set the number of CPU used in the analysis.
     -w W, -writeDownDetails
-                       Do you want to add additional notes as emmer run? Default: False.
+                       Do you want to add additional notes as piemmer run? Default: False.
                        (Not available,. Will be included in future update)
                        Usage:
-                       python3 -m emmer.harvest <other_arguments_and_inputs> -w
+                       python3 -m piemmer.harvest <other_arguments_and_inputs> -w
     """
     pass
 
@@ -170,7 +184,7 @@ class HarvestArgs:
 
     Argument:
         suppress -- Type: boolean
-                    Should emmer end program after error arise. Set at False when
+                    Should piemmer end program after error arise. Set at False when
                     running unittest
         silence -- Type: boolean
                    When set as True. Silence warning messages
@@ -187,7 +201,7 @@ class HarvestArgs:
                 Store the user input parameters from command line
         input_dir -- Type: str
                      Corresponding to args.i
-        input -- Type: emmer.main.basic.read.GetFiles
+        input -- Type: piemmer.main.basic.read.GetFiles
         specific_csv -- Type: boolean
                         Set True if <self.input_dir> is a specific csv file. False when <self.input_dir>
                         is a directory
@@ -218,7 +232,7 @@ class HarvestArgs:
                      before SVD
     """
     def __init__(self, suppress, silence, neglect):
-        parser = argparse.ArgumentParser(description = '#############################################################################\nPlease use -g when you need additional explanation on different modes their corresponding arguments. Try: python3 -m emmer.harvest -g\n#############################################################################')
+        parser = argparse.ArgumentParser(description = '#############################################################################\nPlease use -g when you need additional explanation on different modes their corresponding arguments. Try: python3 -m piemmer.harvest -g\n#############################################################################')
         parser.add_argument('-g', '-guide', action = 'store_true')
         parser.add_argument('-i', type = str)
         parser.add_argument('-q', '-quickLook', action = 'store_true')

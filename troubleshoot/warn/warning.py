@@ -7,10 +7,10 @@ __version__ = 'v0.8.c.4+'
 
 """
 =========================================================================================
-Handle all the warning messages in EMMER.
+Handle all the warning messages in piemmer.
 
-In EMMER, errors always need to be address to ensure the completely excution. Warnings, on
-the other hand, are usually non-critical and can be automatically fixed by EMMER.
+In piemmer, errors always need to be address to ensure the completely excution. Warnings, on
+the other hand, are usually non-critical and can be automatically fixed by piemmer.
 ==========================================================================================
 """
 
@@ -31,7 +31,7 @@ the other hand, are usually non-critical and can be automatically fixed by EMMER
 
 def reportWarning(fn):
     """
-    What should emmer behave when warning occurs?
+    What should piemmer behave when warning occurs?
     1. Whether to print the docstring for WarningCode __init__ function.
        It is much easier to write detail explanation for each error or
        warning in docstring than in print()
@@ -56,7 +56,7 @@ class WarningCode1(Warning):
         Noncritial parameter setting error:
         When setting filter as "MinDataLostFilter", you do not have to set -z.
 
-        emmer.harvest will neglect the -z argument and keep running.
+        piemmer.harvest will neglect the -z argument and keep running.
         """
         return(silence)
 
@@ -70,7 +70,7 @@ class WarningCode2(Warning):
         Noncritial parameter setting error:
         When setting filter as "None", you do not have to set -z.
 
-        emmer.harvest will neglect the -z argument and keep running.
+        piemmer.harvest will neglect the -z argument and keep running.
         """
         return(silence)
 
@@ -82,10 +82,10 @@ class WarningCode3(Warning):
         """
         [[Warning code 3]]
         Noncritial parameter setting error:
-        Currently emmer does not support -sanityCheck (-s) option when designate a specific
+        Currently piemmer does not support -sanityCheck (-s) option when designate a specific
         csv file or when designate a directory that only store one csv file.
 
-        emmer.harvest will reset sanityCheck to False and keep running.
+        piemmer.harvest will reset sanityCheck to False and keep running.
         """
         return(silence)
 
@@ -101,10 +101,10 @@ class WarningCode5(Warning):
         """
         [[Warning code 5]]
         Noncritial parameter setting error:
-        Currently emmer does not support -plot (-p) option when designate a specific
+        Currently piemmer does not support -plot (-p) option when designate a specific
         csv file or when designate a directory that only store one csv file.
 
-        emmer.harvest will reset -plot to False and keep running.
+        piemmer.harvest will reset -plot to False and keep running.
         """
         return(silence)
 
@@ -115,7 +115,7 @@ class WarningCode6(Warning):
     def __init__(self, silence):
         """
         [[Warning code 6]]
-        'output' folder exist in your working directory. Excuting emmer.tests will
+        'output' folder exist in your working directory. Excuting piemmer.tests will
         generate additional files in 'output' folder. Please consider to move your
         existing output file to other directory. Or remove 'output' folder to avoid
         confusion in the feature.
@@ -141,7 +141,7 @@ class WarningCode8(Warning):
     def __init__(self, silence):
         """
         [[Warning code 8]]
-        We are deeply sorry that the current version of emmer does not allow users
+        We are deeply sorry that the current version of piemmer does not allow users
         to change shapes of data points on the PCA plot.
 
         This limitation might be related to issue 11155
@@ -150,7 +150,7 @@ class WarningCode8(Warning):
         We will try to enable the functions that allow user to define shapes of
         data points once this issue is resolved.
 
-        If you have better solution, please contact emmer deveplors
+        If you have better solution, please contact piemmer deveplors
         """
         return(silence)
 
@@ -176,7 +176,7 @@ class WarningCode10(Warning):
         You do not need to set threshold for reporting information-rich feature
         (-t) when using Quick Look Mode (-q).
 
-        emmer.harvest will neglect the -t setting and keep running.
+        piemmer.harvest will neglect the -t setting and keep running.
         """
         return(silence)
 
@@ -214,9 +214,9 @@ class WarningCode13(Warning):
         [[Warning code 13]]
         Redundant and maybe conflicting parameter setting:
         When choose -m as ['Permanova', 'Individual'] and provide provide -p,
-        emmer.bake will use the corrodinates in -p (not -i).
+        piemmer.bake will use the corrodinates in -p (not -i).
 
-        To avoid potentially conflicting information regrading the coordinates, emmer.bake
+        To avoid potentially conflicting information regrading the coordinates, piemmer.bake
         will neglect -i setting and use the coordinates from -p.
         """
         return(silence)

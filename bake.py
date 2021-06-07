@@ -18,10 +18,10 @@ import argparse
 import sys
 import os
 
-__version__ = '1.0.1'
+__version__ = '1.0.5'
 
 """
-This module (emmer.bake) take in EMMER output csv files and generate plots or conduct
+This module (piemmer.bake) take in piemmer.harvest output csv files and generate plots or conduct
 follow-up analyses.
 """
 
@@ -33,7 +33,7 @@ def tutorial(self):
                    aesthetics setting
     2. Permanova: apply PERMANOVA test on different groups in the PCA plot
     3. RevisitThreshold: revisit threshold settings (args.t, args.l, and args.u) used in
-                         emmer.harvest
+                         piemmer.harvest
     4. Reproducibility: summarizing information-rich feature calling reproducibility into
                         basic statistics and histogram
     5. Bifurication: identify information-rich features that help to differentiate different
@@ -42,6 +42,12 @@ def tutorial(self):
 
 
     ##==2==##  How To
+    If you download from anaconda, you can get the location of our example files by:
+    python3
+    import pkg_resources
+    DATA_PATH = pkg_resources.resource_filename('piemmer', 'data/')
+    DATA_PATH
+
     0. General options:
        -m M, -mode        Which mode you want to use. Please refer to the Different Modes and Their Usages section above.
 
@@ -49,48 +55,48 @@ def tutorial(self):
        -o O               Expect a string. This string will be tag to all your output file name from the analysis.
        optional:
        -w W, -writeDownDetails
-                          Do you want to add additional notes as emmer run? Default: False.
+                          Do you want to add additional notes as piemmer run? Default: False.
                           (Not available,. Will be included in future update)
                           Usage:
-                          python3 -m emmer.harvest <other_arguments_and_inputs> -w
+                          python3 -m piemmer.harvest <other_arguments_and_inputs> -w
     ------------------------------------------------------------
     1. Individual mode:
-       python3 -m emmer.bake -m 'Individual' -i emmer/data/bake_data_dir_6/filtered_infoRich__PCA_coordinates.csv
+       python3 -m piemmer.bake -m 'Individual' -i DATA_PATH/data/bake_data_dir_6/filtered_infoRich__PCA_coordinates.csv
 
-       -i I               An emmer.harvest-gereated projection file (whose file name contains the keyword 'projection' or
+       -i I               An piemmer.harvest-gereated projection file (whose file name contains the keyword 'projection' or
                           'coordinates') that stores the coordinates of each sample in PCA space.
-       -a A               An emmer.harvest-gereated file that contains information about percent explained by each PC. This
+       -a A               An piemmer.harvest-gereated file that contains information about percent explained by each PC. This
                           file cound be found under 'output' with 'precent_explained' in the file name.
 
        optional:
        -p P               An csv file with PCA coordinates and aesthetics settings. This file will be generated after
                           you run Individual mode. You can find the file under 'revisit/''
                           You do not have to provide -i argument if you are using -p option. When providing arguments for
-                          both -i and -p, emmer will ignore -i input and report warning message.
+                          both -i and -p, piemmer will ignore -i input and report warning message.
 
                           Should you choose to rerun this mode with, you can use
-                          python3 -m emmer.bake -m 'Individual' -p where_you_store_the_file/coordinates_and_parameters.csv
+                          python3 -m piemmer.bake -m 'Individual' -p where_you_store_the_file/coordinates_and_parameters.csv
     ------------------------------------------------------------
     2. Permanova mode:
-       python3 -m emmer.bake -m 'Permanova' -i emmer/data/bake_data_dir_6/filtered_infoRich__PCA_coordinates.csv
+       python3 -m piemmer.bake -m 'Permanova' -i DATA_PATH/data/bake_data_dir_6/filtered_infoRich__PCA_coordinates.csv
 
-       -i I               An emmer.heavest-gereated projection file (whose file name contains the keyword 'projection' or
+       -i I               An piemmer.heavest-gereated projection file (whose file name contains the keyword 'projection' or
                           'coordinates') that stores the coordinates of each sample in PCA space.
     ------------------------------------------------------------
     3. Reproducibility mode:
-       python3 -m emmer.bake -m 'Reproducibility' -b 20 -i emmer/data/bake_data_dir_4/information_rich_features_summary.csv
+       python3 -m piemmer.bake -m 'Reproducibility' -b 20 -i piemmer/data/bake_data_dir_4/information_rich_features_summary.csv
 
        -b B               Number of bins used when generating the histogram under "Reproducibility" mode
        -i I               An emmer.harvest-gereated csv file that stores information-rich feature calling reproducibility
     ------------------------------------------------------------
     4. RevisitThreshold mode:
-       python3 -m emmer.bake -m 'RevisitThreshold' -u 2.5,1.5,0.25 -l 2.5,1.5,0.25 -t 2,2,0 -e output/detail_vNE/ -i output/filtered_data/
+       python3 -m piemmer.bake -m 'RevisitThreshold' -u 2.5,1.5,0.25 -l 2.5,1.5,0.25 -t 2,2,0 -e output/detail_vNE/ -i output/filtered_data/
 
-       -u U               Revisit args.u (-u) setting in EMMER. Expect a three-element tuple. Example: 3,1,1 (upper bondary,
+       -u U               Revisit args.u (-u) setting in piemmer.harvest. Expect a three-element tuple. Example: 3,1,1 (upper bondary,
                           lower bondary, increment)
-       -l L               Revisit args.l (-l) setting in EMMER. Expect a three-element tuple. Example: 3,1,1 (upper bondary,
+       -l L               Revisit args.l (-l) setting in piemmer.harvest. Expect a three-element tuple. Example: 3,1,1 (upper bondary,
                           lower bondary, increment)
-       -t T               Revisit args.t (-t) setting in EMMER. Expect a three-element tuple. Example: 3,1,1 (upper bondary,
+       -t T               Revisit args.t (-t) setting in piemmer.harvest. Expect a three-element tuple. Example: 3,1,1 (upper bondary,
                           lower bondary, increment)
        -e E               A directory that store detail_vNE.csv files. The input is most likely to be 'output/detal_vNE'
        -i I               A directory that store filtered or prefilter data. The input is most likely to be 'output/filtered_data' or
@@ -99,39 +105,39 @@ def tutorial(self):
                           rich features to be similar to the PCA generated from filtered_data or pre_filter_data
 
        optional:
-       -n N, normalize    Choose this option when you set -n as True when running emmer.harvest
+       -n N, normalize    Choose this option when you set -n as True when running piemmer.harvest
        -c C, -cpuNum      Support multiprocessing. This argument is used to set the number of CPU used in the analysis.
     ------------------------------------------------------------
     5. Bifurication mode:
-       python3 -m emmer.bake -m 'Bifurication' -i emmer/data/bake_data_dir_4/filtered_data
-                             -p emmer/data/bake_data_dir_4/information_rich_features_summary.csv
+       python3 -m piemmer.bake -m 'Bifurication' -i DATA_PATH/data/bake_data_dir_4/filtered_data
+                             -p piemmer/data/bake_data_dir_4/information_rich_features_summary.csv
        [!] Remember to covert the above command into a single-line command if you wish to run the example
 
        -i I               A directory that store filtered data. The input is most likely to be 'output/filtered_data'
-       -p P               An emmer-generated summary of the information-rich features.
+       -p P               An piemmer-generated summary of the information-rich features.
 
        optional:
-       -n N, normalize    Choose this option when you set -n as True when running emmer.harvest
+       -n N, normalize    Choose this option when you set -n as True when running piemmer.harvest
     ------------------------------------------------------------
     6. Projection mode:
-       python3 -m emmer.bake -m 'Projection' -i emmer/data/bake_data_dir_9/filtered_infoRich__PCA_coordinates.csv
-                             -v emmer/data/bake_data_dir_9/filtered_infoRich__transformation_matrix.csv
-                             -s emmer/data/bake_data_dir_9/filtered_infoRich__data_scaler.csv
-                             -x emmer/data/bake_data_dir_9/new_observation.csv -r
+       python3 -m piemmer.bake -m 'Projection' -i DATA_PATH/data/bake_data_dir_9/filtered_infoRich__PCA_coordinates.csv
+                             -v piemmer/data/bake_data_dir_9/filtered_infoRich__transformation_matrix.csv
+                             -s piemmer/data/bake_data_dir_9/filtered_infoRich__data_scaler.csv
+                             -x piemmer/data/bake_data_dir_9/new_observation.csv -r
        [!] Remember to covert the above command into a single-line command if you wish to run the example
 
-       -i I                An emmer.harvest-gereated projection file (whose file name contains the keyword 'projection' or
+       -i I                An piemmer.harvest-gereated projection file (whose file name contains the keyword 'projection' or
                            'coordinates') that stores the coordinates of each sample in PCA space.
-       -v V                An emmer.harvest generated csv file that stores the transformation matix. Hint: the file name that
+       -v V                An piemmer.harvest generated csv file that stores the transformation matix. Hint: the file name that
                            contains 'transformation_matrix'.
-       -s1 S1              An emmer.harvest generated csv file that stores the column means. Hint: the file name that contains '__data_colmean'
+       -s1 S1              An piemmer.harvest generated csv file that stores the column means. Hint: the file name that contains '__data_colmean'
        -x X                New observations. Input directory that contains one or many csv files or a path to specific csv file.
                            Expect to have column headers and row names. Each row represents a sample and each column represents a feature.
 
        optional:
        -r R                Convert data into fractional abudance.
-       -s2 S2              An emmer.harvest generated csv file that stores the standard deviation for each column. EMMER will generate this
-                           csv file, when you set -n as True when running emmer.harvest.
+       -s2 S2              An piemmer.harvest generated csv file that stores the standard deviation for each column. piemmer will generate this
+                           csv file, when you set -n as True when running piemmer.harvest.
                            Hint: the file name that contains '__data_colstd'
     """
     pass
@@ -145,10 +151,10 @@ class BakeCommonArgs:
 
     Argument:
         suppress -- Type: boolean
-                    Should emmer end program after error arise. Set at False when
+                    Should piemmer end program after error arise. Set at False when
                     running unittest
         silence -- Type: boolean
-                   emmer will not report warning massage when silence == True
+                   piemmer will not report warning massage when silence == True
         neglect -- Type: boolean
                    Suppress notebook initation when running unittest
         test -- Type: boolean
@@ -167,7 +173,7 @@ class BakeCommonArgs:
     """
 
     def __init__(self, suppress, silence, neglect, test):
-        parser = argparse.ArgumentParser(description = '#############################################################################\nPlease use -g when you need additional explanation on different modes their corresponding arguments. Try: python3 -m emmer.harvest -g\n#############################################################################')
+        parser = argparse.ArgumentParser(description = '#############################################################################\nPlease use -g when you need additional explanation on different modes their corresponding arguments. Try: python3 -m piemmer.harvest -g\n#############################################################################')
         parser.add_argument('-g', '-guide', action = 'store_true')
         parser.add_argument('-i', type = str)
         parser.add_argument('-a', type = str)
@@ -252,14 +258,14 @@ if __name__ == '__main__':
 
 ##==2==## different bake modes
 ##--1--## model = 'Individual'
-    # python3 -m emmer.bake -m 'Individual' -i emmer/data/bake_data_dir_6/filtered_infoRich__PCA_coordinates.csv
+    # python3 -m piemmer.bake -m 'Individual' -i DATA_PATH/data/bake_data_dir_6/filtered_infoRich__PCA_coordinates.csv
     if common_args.selected_model == 'Individual':
         plotIndividual(args = common_args.args, current_wd = current_wd, retrospect_dir = retrospect_dir,
                        output_file_tag = common_args.output_file_tag, suppress = False, silence = False)
 
 
 ##--2--## model = 'Permanova'
-    # python3 -m emmer.bake -m 'Permanova' -i emmer/data/bake_data_dir_6/filtered_infoRich__PCA_coordinates.csv
+    # python3 -m piemmer.bake -m 'Permanova' -i DATA_PATH/data/bake_data_dir_6/filtered_infoRich__PCA_coordinates.csv
     if common_args.selected_model == 'Permanova':
         permanovaResult(args = common_args.args, current_wd = current_wd, retrospect_dir = retrospect_dir,
                         output_file_tag = common_args.output_file_tag, notebook_name = common_args.notebook_name,
@@ -270,30 +276,30 @@ if __name__ == '__main__':
 
 
 ##--3--## style = 'Reproducibility'
-    # python3 -m emmer.bake -m 'Reproducibility' -b 20 -i emmer/data/bake_data_dir_4/information_rich_features_summary.csv
+    # python3 -m piemmer.bake -m 'Reproducibility' -b 20 -i DATA_PATH/data/bake_data_dir_4/information_rich_features_summary.csv
     if common_args.selected_model == 'Reproducibility':
         reproSummary(args = common_args.args, current_wd = current_wd, retrospect_dir = retrospect_dir,
                      output_file_tag = common_args.output_file_tag, suppress = False, silence = False)
 
 
 ##--4--## model = 'RevisitThreshold'
-    # python3 -m emmer.bake -m 'RevisitThreshold' -u 2.5,1.5,0.25 -l 2.5,1.5,0.25 -e output/detail_vNE/ -i output/filtered_data/
+    # python3 -m piemmer.bake -m 'RevisitThreshold' -u 2.5,1.5,0.25 -l 2.5,1.5,0.25 -e output/detail_vNE/ -i output/filtered_data/
     if common_args.selected_model == 'RevisitThreshold':
         revisitThresholdResult(args = common_args.args, current_wd = current_wd, retrospect_dir = retrospect_dir,
                                output_file_tag = common_args.output_file_tag, suppress = False, silence = False)
 
 
 ##--5--## model = 'Bifurication'
-    # python3 -m emmer.bake -m 'Bifurication' -i emmer/data/bake_data_dir_4/filtered_data -p emmer/data/bake_data_dir_4/information_rich_features_summary.csv
+    # python3 -m piemmer.bake -m 'Bifurication' -i DATA_PATH/data/bake_data_dir_4/filtered_data -p DATA_PATH/data/bake_data_dir_4/information_rich_features_summary.csv
     if common_args.selected_model == 'Bifurication':
         identifiedFeatures(args = common_args.args, current_wd = current_wd, retrospect_dir = retrospect_dir,
                            output_file_tag = common_args.output_file_tag, suppress = False)
 
 
 ##--6--## model = 'Projection'
-    # python3 -m emmer.bake -m 'Projection' -i emmer/data/bake_data_dir_9/filtered_infoRich__PCA_coordinates.csv \
-    #                       -v emmer/data/bake_data_dir_9/filtered_infoRich__transformation_matrix.csv \
-    #                       -s emmer/data/bake_data_dir_9/filtered_infoRich__data_scaler.csv -x emmer/data/bake_data_dir_9/new_observation.csv -r
+    # python3 -m piemmer.bake -m 'Projection' -i DATA_PATH/data/bake_data_dir_9/filtered_infoRich__PCA_coordinates.csv \
+    #                       -v DATA_PATH/data/bake_data_dir_9/filtered_infoRich__transformation_matrix.csv \
+    #                       -s DATA_PATH/data/bake_data_dir_9/filtered_infoRich__data_scaler.csv -x DATA_PATH/data/bake_data_dir_9/new_observation.csv -r
     if common_args.selected_model == 'Projection':
         new_and_old_projection_df = projectNew(args = common_args.args, current_wd = current_wd, retrospect_dir = retrospect_dir,
                                                output_file_tag = common_args.output_file_tag, suppress = False)

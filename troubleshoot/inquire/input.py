@@ -11,11 +11,11 @@ import re
 
 
 """
-Handle all the input messages in EMMER
+Handle all the input messages in piemmer
 """
 
 ## TODO: no second change after failing input evaluation
-#        python3 -m emmer.bake
+#        python3 -m piemmer.bake
 #        x
 
 
@@ -277,10 +277,10 @@ class InputCode2:
 
 class InputCode3:
     """
-    Choose emmer.bake mode.
+    Choose piemmer.bake mode.
 
     In the future, this input class can be generalized to all of the multiple choice
-    input in emmer
+    input in piemmer
 
     Arguments:
         set -- Type: list
@@ -296,7 +296,7 @@ class InputCode3:
     def __init__(self, set, choice_dict, suppress):
         """
         [[Input code 3]]
-        Please choose emmer.bake mode. You can choose from the following options:
+        Please choose piemmer.bake mode. You can choose from the following options:
 
         [1] Individual
         [2] Permanova
@@ -306,7 +306,7 @@ class InputCode3:
         [6] Projection
 
         After you make your choose, please type the full name of the mode (e.g.
-        'Individual') or option number (e.g. '1'). Please note that emmer.bake
+        'Individual') or option number (e.g. '1'). Please note that piemmer.bake
         are case sensitive. In another word, 'individual' will not be accepted
         as legitimate input.
 
@@ -315,7 +315,7 @@ class InputCode3:
                        aesthetics setting
         2. Permanova: conduct PERMANOVA test on different groups in the PCA plot
         3. RevisitThreshold: revisit threshold settings (args.t, args.l, and args.u) used in
-                             emmer.harvest
+                             piemmer.harvest
         4. Reproducibility: summarizing information-rich feature calling reproducibility into
                             basic statistics and histogram
         5. Bifurication: identify information-rich features that help to differentiate different
@@ -464,7 +464,7 @@ class InputCode6:
 
 class InputCode7:
     """
-    Reminding users that running emmer.tests will remove existing output files.
+    Reminding users that running piemmer.tests will remove existing output files.
 
     Arguments:
         suppress -- Type: boolean
@@ -476,7 +476,7 @@ class InputCode7:
     def __init__(self, suppress):
         """
         [[Input code 7]]
-        Please note that running emmer.tests will remove existing output files.
+        Please note that running piemmer.tests will remove existing output files.
         Please remember to backup those output files if you still want to use
         them in the future.
 
