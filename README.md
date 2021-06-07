@@ -1,4 +1,3 @@
-![conda](https://anaconda.org/bioconda/piemmer/badges/installer/conda.svg)
 ![platforms](https://anaconda.org/bioconda/piemmer/badges/platforms.svg)
 ![pypi](https://img.shields.io/pypi/v/piemmer?style=flat-square)
 ![conda version](https://anaconda.org/bioconda/piemmer/badges/version.svg)
