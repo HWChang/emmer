@@ -1,7 +1,7 @@
 ![conda](https://anaconda.org/bioconda/piemmer/badges/installer/conda.svg)
+![platforms](https://anaconda.org/bioconda/piemmer/badges/platforms.svg)
 ![pypi](https://img.shields.io/pypi/v/piemmer?style=flat-square)
 ![conda version](https://anaconda.org/bioconda/piemmer/badges/version.svg)
-![platforms](https://anaconda.org/bioconda/piemmer/badges/platforms.svg)
 ![license](https://anaconda.org/bioconda/piemmer/badges/license.svg)
 
 # PIEMMER: Simplify the Input for Principal Component Analysis
