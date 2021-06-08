@@ -7,7 +7,7 @@ https://anaconda.org/bioconda/piemmer/badges/version.svg)
 
 # PIEMMER: Simplify the Input for Principal Component Analysis
 
-PIEMMER is a python package that implement EMMER algorithm.
+PIEMMER is a python package that implement the EMMER algorithm.
 
 EMMER, which stands for Entropy-based Method for Microbial Ecology Research, is a feature selection algorithm that reduces the number of measurements in a matrix while allowing this new matrix to retains a similar data distribution on a Principal Component Analysis (PCA) plot (see Fig. 1; [view figure](https://drive.google.com/file/d/1m2O658NZMInmYYlyI9AdUuz2hbg14U6X/view?usp=sharing)). We named this algorithm EMMER because it was originally developed to processing microbiota and microbiome datasets. Later, we realize this algorithm has a wider application because the shared mathematical procedure between EMMER algorithm and PCA
 
