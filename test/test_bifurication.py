@@ -32,7 +32,8 @@ class TestBifuricationArgs(unittest.TestCase):
 
         print('        ---------------------------------------------------')
         print('             1.2: missing args.i setting')
-        sys.argv[1:] = ['-m', 'Bifurication', '-p', 'emmer/data/bake_data_dir_4/information_rich_features_summary.csv']
+        #sys.argv[1:] = ['-m', 'Bifurication', '-p', 'emmer/data/bake_data_dir_4/information_rich_features_summary.csv']
+        sys.argv[1:] = ['-m', 'Bifurication', '-p', 'data/bake_data_dir_4/information_rich_features_summary.csv']
         current_wd = os.getcwd()
         processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
         processed_args.getHomeKeepingArgs()
@@ -43,7 +44,8 @@ class TestBifuricationArgs(unittest.TestCase):
 
         print('        ---------------------------------------------------')
         print('             1.3: args.1 only contains one csv file')
-        sys.argv[1:] = ['-m', 'Bifurication', '-p', 'emmer/data/bake_data_dir_4/information_rich_features_summary.csv',
+        #sys.argv[1:] = ['-m', 'Bifurication', '-p', 'emmer/data/bake_data_dir_4/information_rich_features_summary.csv',
+        sys.argv[1:] = ['-m', 'Bifurication', '-p', 'data/bake_data_dir_4/information_rich_features_summary.csv',
                         '-i', 'emmer/data/data_dir_1']
         current_wd = os.getcwd()
         processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
@@ -56,7 +58,8 @@ class TestBifuricationArgs(unittest.TestCase):
         print('        ---------------------------------------------------')
         print('        case 2: expect to work')
         print('             2.1: get correct list of information-rich features')
-        sys.argv[1:] = ['-m', 'Bifurication', '-p', 'emmer/data/bake_data_dir_4/information_rich_features_summary.csv',
+        #sys.argv[1:] = ['-m', 'Bifurication', '-p', 'emmer/data/bake_data_dir_4/information_rich_features_summary.csv',
+        sys.argv[1:] = ['-m', 'Bifurication', '-p', 'data/bake_data_dir_4/information_rich_features_summary.csv',
                         '-i', 'emmer/data/bake_data_dir_4/filtered_data']
         current_wd = os.getcwd()
         processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
