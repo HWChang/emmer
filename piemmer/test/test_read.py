@@ -20,7 +20,7 @@ class TestGetFiles(unittest.TestCase):
         print('\ntest_GetFiles:')
         print('        case 1: get the name of files from the user-defined directory')
         #input_dir = 'emmer/data/data_dir_2/'
-        input_dir = 'emmer/data/data_dir_3/'
+        input_dir = 'piemmer/data/data_dir_3/'
         multiple_input = GetFiles(input_dir = input_dir, suppress = False, second_chance = False)
         my_result = sorted(list(multiple_input.input_files))
 
@@ -29,7 +29,7 @@ class TestGetFiles(unittest.TestCase):
 
         print('        ---------------------------------------------------')
         print('        case 2: test error handling (no csv in user-defined directory)')
-        input_dir = 'emmer/data/data_dir_5/'
+        input_dir = 'piemmer/data/data_dir_5/'
         with self.assertRaises(ErrorCode1):
             multiple_input = GetFiles(input_dir = input_dir, suppress = True, second_chance = False)
         print('===========================================================')
@@ -40,7 +40,7 @@ class TestRawDataImport(unittest.TestCase):
     def test_readCSV(self):
         print('\ntest_readCSV:')
         print('        case 1: read csv files')
-        input_matrix = RawDataImport(file_name = 'emmer/data/test_case_1.csv', for_merging_file = False, suppress = False)
+        input_matrix = RawDataImport(file_name = 'piemmer/data/test_case_1.csv', for_merging_file = False, suppress = False)
         input_matrix.readCSV()
 
         data = {'col1':[10, 21, 42, 21, 45 ,0],
@@ -57,32 +57,32 @@ class TestRawDataImport(unittest.TestCase):
         print('        case 2: test error handling')
         print('             2.1: file name should not contain "__"')
         with self.assertRaises(ErrorCode38):
-            input_matrix = RawDataImport(file_name = 'emmer/data/data_dir_6/test__case_2.csv', for_merging_file = False, suppress = True)
+            input_matrix = RawDataImport(file_name = 'piemmer/data/data_dir_6/test__case_2.csv', for_merging_file = False, suppress = True)
             input_matrix.readCSV()
 
         print('        ---------------------------------------------------')
         print('             2.2: row name should not contain "__"')
         with self.assertRaises(ErrorCode39):
-            input_matrix = RawDataImport(file_name = 'emmer/data/data_dir_6/test_case_1.csv', for_merging_file = False, suppress = True)
+            input_matrix = RawDataImport(file_name = 'piemmer/data/data_dir_6/test_case_1.csv', for_merging_file = False, suppress = True)
             input_matrix.readCSV()
 
         print('        ---------------------------------------------------')
         print('             2.3: input file name should ends with ".csv"')
         with self.assertRaises(ErrorCode1):
-            input_matrix = RawDataImport(file_name = 'emmer/data/sow_test_dir_2/targert_file_1.txt', for_merging_file = False, suppress = True)
+            input_matrix = RawDataImport(file_name = 'piemmer/data/sow_test_dir_2/targert_file_1.txt', for_merging_file = False, suppress = True)
             input_matrix.readCSV()
 
         print('        ---------------------------------------------------')
         print('             2.4: file not found')
         with self.assertRaises(ErrorCode1):
-            input_matrix = RawDataImport(file_name = 'emmer/data/data_dir_5/test.csv', for_merging_file = False, suppress = True)
+            input_matrix = RawDataImport(file_name = 'piemmer/data/data_dir_5/test.csv', for_merging_file = False, suppress = True)
             input_matrix.readCSV()
         print('===========================================================')
 
 
     def test_relativeAbundance(self):
         print('\ntest_RawDataImport.relativeAbundance:')
-        input_matrix = RawDataImport(file_name = 'emmer/data/test_case_1.csv')
+        input_matrix = RawDataImport(file_name = 'piemmer/data/test_case_1.csv')
         input_matrix.readCSV()
         input_matrix.relativeAbundance()
         my_result = list(pandas.DataFrame.sum(input_matrix.data, axis = 1))
@@ -96,7 +96,7 @@ class TestRawDataImport(unittest.TestCase):
     def test_detectionLimit(self):
         print('\ntest_RawDataImport.detectionLimit:')
         print('        case 1: complete entry that below the detection limit.\nThen remove empty row and column.')
-        input_matrix = RawDataImport(file_name = 'emmer/data/test_case_1.csv', for_merging_file = False, suppress = True)
+        input_matrix = RawDataImport(file_name = 'piemmer/data/test_case_1.csv', for_merging_file = False, suppress = True)
         input_matrix.readCSV()
         input_matrix.relativeAbundance()
         input_matrix.detectionLimit(detection_limit = 0.4)
@@ -113,7 +113,7 @@ class TestRawDataImport(unittest.TestCase):
     def test_hardFilter(self):
         print('\ntest_RawDataImport.detectionLimit:')
         print('        case 1: complete entry that below the detection limit. Then remove empty row and column.')
-        input_matrix = RawDataImport(file_name = 'emmer/data/test_case_1.csv', for_merging_file = False, suppress = True)
+        input_matrix = RawDataImport(file_name = 'piemmer/data/test_case_1.csv', for_merging_file = False, suppress = True)
         input_matrix.readCSV()
         input_matrix.relativeAbundance()
         input_matrix.detectionLimit(detection_limit = 0.2)
@@ -131,8 +131,8 @@ class TestMergeTargetedFiles(unittest.TestCase):
         print('\ntest_MergeTargetedFiles.getMap:')
         print('        case 1: get mapping file')
         print('             1.1: correct mapping file')
-        mapping_file = "emmer/data/sow_test_dir_2/correct_mapping_file.csv"
-        target_file_dir = "emmer/data/sow_test_dir_2"
+        mapping_file = "piemmer/data/sow_test_dir_2/correct_mapping_file.csv"
+        target_file_dir = "piemmer/data/sow_test_dir_2"
         suppress = False
 
         merge_target_files = MergeTargetedFiles(mapping_file = mapping_file, target_file_dir = target_file_dir,
@@ -147,8 +147,8 @@ class TestMergeTargetedFiles(unittest.TestCase):
 
         print('        ---------------------------------------------------')
         print('             1.2: raise error when handling mapping file that has incorrect format')
-        mapping_file = "emmer/data/sow_test_dir_2/incorrect_mapping_file.csv"
-        target_file_dir = "emmer/data/sow_test_dir_2"
+        mapping_file = "piemmer/data/sow_test_dir_2/incorrect_mapping_file.csv"
+        target_file_dir = "piemmer/data/sow_test_dir_2"
         suppress = True
 
         with self.assertRaises(ErrorCode40):
@@ -159,9 +159,9 @@ class TestMergeTargetedFiles(unittest.TestCase):
 
 
         print('\ntest_MergeTargetedFiles.getTargetFile:')
-        mapping_file = "emmer/data/sow_test_dir_2/correct_mapping_file.csv"
-        target_file_dir = "emmer/data/sow_test_dir_2"
-        target_file = "emmer/data/sow_test_dir_2/targert_file_1.txt"
+        mapping_file = "piemmer/data/sow_test_dir_2/correct_mapping_file.csv"
+        target_file_dir = "piemmer/data/sow_test_dir_2"
+        target_file = "piemmer/data/sow_test_dir_2/targert_file_1.txt"
         suppress = False
 
         merge_target_files = MergeTargetedFiles(mapping_file = mapping_file, target_file_dir = target_file_dir,
@@ -175,8 +175,8 @@ class TestMergeTargetedFiles(unittest.TestCase):
 
 
         print('\ntest_MergeTargetedFiles.mergeFile:')
-        mapping_file = "emmer/data/sow_test_dir_2/correct_mapping_file.csv"
-        target_file_dir = "emmer/data/sow_test_dir_2"
+        mapping_file = "piemmer/data/sow_test_dir_2/correct_mapping_file.csv"
+        target_file_dir = "piemmer/data/sow_test_dir_2"
         suppress = False
 
         merged = MergeTargetedFiles(mapping_file = mapping_file, target_file_dir = target_file_dir,
@@ -197,20 +197,20 @@ class TestRetrospectDataImport(unittest.TestCase):
         print('        case 1: __init__ error handling')
         print('             1.1: input file contains null value')
         with self.assertRaises(ErrorCode45):
-            imported_bake_data = RetrospectDataImport(file_name = 'emmer/data/problem_maker/read_module/information_rich_features_summary_w_NA.csv', type = 'reproducibility', dimension = 'n', suppress = True)
+            imported_bake_data = RetrospectDataImport(file_name = 'piemmer/data/problem_maker/read_module/information_rich_features_summary_w_NA.csv', type = 'reproducibility', dimension = 'n', suppress = True)
 
 
         print('        ---------------------------------------------------')
         print('             1.2: file not found')
         with self.assertRaises(ErrorCode1):
-            imported_bake_data = RetrospectDataImport(file_name = 'emmer/data/problem_maker/read_module/a_file_that_never_exist.csv', type = 'coordinate', dimension = 'n', suppress = True)
+            imported_bake_data = RetrospectDataImport(file_name = 'piemmer/data/problem_maker/read_module/a_file_that_never_exist.csv', type = 'coordinate', dimension = 'n', suppress = True)
 
 
         print('        ---------------------------------------------------')
         print('        case 2. "coordinate" error handling')
         print('             2.2: input only contains coordinate for one PC')
         with self.assertRaises(ErrorCode11):
-            imported_bake_data = RetrospectDataImport(file_name = 'emmer/data/problem_maker/read_module/PC1_only_coordinates.csv', type = 'coordinate', dimension = 'n', suppress = True)
+            imported_bake_data = RetrospectDataImport(file_name = 'piemmer/data/problem_maker/read_module/PC1_only_coordinates.csv', type = 'coordinate', dimension = 'n', suppress = True)
 
 
         print('        ---------------------------------------------------')
@@ -218,7 +218,7 @@ class TestRetrospectDataImport(unittest.TestCase):
         print('             3.1: expect to work')
         print('             3.1.1.: summarized reproducibilty output')
         print('                     row: information-rich taxa; column: group')
-        imported_repro_data = RetrospectDataImport(file_name = 'emmer/data/bake_data_dir_8/case1.csv', type = 'reproducibility', suppress = False)
+        imported_repro_data = RetrospectDataImport(file_name = 'piemmer/data/bake_data_dir_8/case1.csv', type = 'reproducibility', suppress = False)
         my_result = numpy.mean(numpy.array(imported_repro_data.reproducibility))
         expected_result = 0.40625
         self.assertAlmostEqual(my_result, expected_result)
@@ -226,7 +226,7 @@ class TestRetrospectDataImport(unittest.TestCase):
 
         print('             3.1.2.: reproducibilty output from a single input file')
         print('                     row: information-rich taxa; column: ["feature_name", "occurrence", "repreducibility (%)"]')
-        imported_repro_data = RetrospectDataImport(file_name = 'emmer/data/bake_data_dir_8/case2.csv', type = 'reproducibility', suppress = False)
+        imported_repro_data = RetrospectDataImport(file_name = 'piemmer/data/bake_data_dir_8/case2.csv', type = 'reproducibility', suppress = False)
         my_result = numpy.mean(numpy.array(imported_repro_data.reproducibility))
         expected_result = 75.6302521008403
         self.assertAlmostEqual(my_result, expected_result)
@@ -236,18 +236,18 @@ class TestRetrospectDataImport(unittest.TestCase):
         print('        case 4: unexpected input format when type == "data_color_shape_and_fill"')
         print('             4.1: incorrect column header')
         with self.assertRaises(ErrorCode29):
-            imported_bake_data = RetrospectDataImport(file_name = 'emmer/data/problem_maker/read_module/incorrect_header_data_color_shape_and_fill.csv', type = 'data_color_shape_and_fill', dimension = 'n', suppress = True)
+            imported_bake_data = RetrospectDataImport(file_name = 'piemmer/data/problem_maker/read_module/incorrect_header_data_color_shape_and_fill.csv', type = 'data_color_shape_and_fill', dimension = 'n', suppress = True)
 
         print('        ---------------------------------------------------')
         print('             4.2: no column header named edge_color')
         with self.assertRaises(ErrorCode30):
-            imported_bake_data = RetrospectDataImport(file_name = 'emmer/data/problem_maker/read_module/no_edge_color.csv', type = 'data_color_shape_and_fill', dimension = 'n', suppress = True)
+            imported_bake_data = RetrospectDataImport(file_name = 'piemmer/data/problem_maker/read_module/no_edge_color.csv', type = 'data_color_shape_and_fill', dimension = 'n', suppress = True)
 
 
         print('        ---------------------------------------------------')
         print('        case 5: unexpected input file for "precent_explained"')
         with self.assertRaises(ErrorCode9):
-            imported_bake_data = RetrospectDataImport(file_name = 'emmer/data/problem_maker/read_module/incorrect_precent_explained.csv', type = 'precent_explained', dimension = 'n', suppress = True)
+            imported_bake_data = RetrospectDataImport(file_name = 'piemmer/data/problem_maker/read_module/incorrect_precent_explained.csv', type = 'precent_explained', dimension = 'n', suppress = True)
 
 
 

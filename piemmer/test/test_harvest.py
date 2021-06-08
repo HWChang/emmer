@@ -28,7 +28,7 @@ class TestHarvestArgs(unittest.TestCase):
     def test_getArgsI(self):
         print('\ntest_TestHarvestArgs.getArgsI:')
         print('        case 1: non csv file when input a specific file')
-        sys.argv[1:] = ['-i', 'emmer/data/sow_test_dir_2/targert_file_1.txt']
+        sys.argv[1:] = ['-i', 'piemmer/data/sow_test_dir_2/targert_file_1.txt']
         with self.assertRaises(ErrorCode1):
             processed_args = HarvestArgs(suppress = True, silence = False, neglect = True)
             processed_args.getArgsI()
@@ -88,18 +88,19 @@ class TestHarvestArgs(unittest.TestCase):
         print('\ntest_TestHarvestArgs.getArgsPS:')
         print('        case 1: args.s warning handling')
         print('             1.1: current version of emmer can not generate args.s plots when working on specific csv (args.i)')
-        sys.argv[1:] = ['-i', 'emmer/data/data_dir_3/group_A.csv', '-s']
+        print('             Develop Note: this version of piemmer does not have this limitation. Comment out for now. Will remove in the future')
+        #sys.argv[1:] = ['-i', 'piemmer/data/data_dir_3/group_A.csv', '-s']
         #with self.assertRaises(WarningCode3):
-        processed_args = HarvestArgs(suppress = True, silence = False, neglect = True)
-        processed_args.getArgsI()
-        processed_args.getArgsPS()
-        my_result = processed_args.warning_code
-        expected_result = '3'
-        self.assertEqual(my_result, expected_result)
+        #processed_args = HarvestArgs(suppress = True, silence = False, neglect = True)
+        #processed_args.getArgsI()
+        #processed_args.getArgsPS()
+        #my_result = processed_args.warning_code
+        #expected_result = '3'
+        #self.assertEqual(my_result, expected_result)
 
         print('        ---------------------------------------------------')
         print('             1.2: current version of emmer can not generate args.s plots when input directory only contains one csv file')
-        sys.argv[1:] = ['-i', 'emmer/data/data_dir_1/', '-s']
+        sys.argv[1:] = ['-i', 'piemmer/data/data_dir_1/', '-s']
         #with self.assertRaises(WarningCode3):
         processed_args = HarvestArgs(suppress = True, silence = False, neglect = True)
         processed_args.getArgsI()
@@ -111,7 +112,7 @@ class TestHarvestArgs(unittest.TestCase):
         print('        ---------------------------------------------------')
         print('        case 2: args.p warning handling')
         print('             2.1: current version of emmer can not generate args.p plots when working on specific csv (args.i)')
-        sys.argv[1:] = ['-i', 'emmer/data/data_dir_3/group_A.csv', '-p']
+        sys.argv[1:] = ['-i', 'piemmer/data/data_dir_3/group_A.csv', '-p']
         #with self.assertRaises(WarningCode5):
         processed_args = HarvestArgs(suppress = True, silence = False, neglect = True)
         processed_args.getArgsI()
@@ -122,7 +123,7 @@ class TestHarvestArgs(unittest.TestCase):
 
         print('        ---------------------------------------------------')
         print('             2.2: current version of emmer can not generate args.p plots when input directory only contains one csv file')
-        sys.argv[1:] = ['-i', 'emmer/data/data_dir_1', '-p']
+        sys.argv[1:] = ['-i', 'piemmer/data/data_dir_1', '-p']
         #with self.assertRaises(WarningCode6):
         processed_args = HarvestArgs(suppress = True, silence = False, neglect = True)
         processed_args.getArgsI()
@@ -164,8 +165,8 @@ class TestEMMER(unittest.TestCase):
 
     def test_EMMER(self):
         print('\ntest_EMMER:')
-        print('    input_dir: "emmer/data/data_dir_1"')
-        input_dir = 'emmer/data/data_dir_1'
+        print('    input_dir: "piemmer/data/data_dir_1"')
+        input_dir = 'piemmer/data/data_dir_1'
         print('    output_file_tag: "test1"')
         output_file_tag = 'test1'
         print('    detection_limit: 0')
@@ -211,8 +212,8 @@ class TestEMMER(unittest.TestCase):
         print('        ---------------------------------------------------')
         print('        case 1: HardFilter')
         print('             1.1: hypothetical data')
-        print('    input_dir: "emmer/data/data_dir_1"')
-        input_dir = 'emmer/data/data_dir_1'
+        print('    input_dir: "piemmer/data/data_dir_1"')
+        input_dir = 'piemmer/data/data_dir_1'
         print('    output_file_tag: "test1"')
         output_file_tag = 'test1'
         print('    detection_limit: 0')
@@ -258,8 +259,8 @@ class TestEMMER(unittest.TestCase):
         print('        ---------------------------------------------------')
         print('             1.2: read data (check each filtering steps)')
         print('             1.2.1: raw data')
-        print('    input_dir: "emmer/data/data_dir_3/group_A.csv"')
-        input_dir = 'emmer/data/data_dir_3/group_A.csv'
+        print('    input_dir: "piemmer/data/data_dir_3/group_A.csv"')
+        input_dir = 'piemmer/data/data_dir_3/group_A.csv'
         print('    output_file_tag: "test1"')
         output_file_tag = 'test1'
         print('    detection_limit: 0.001')
@@ -322,8 +323,8 @@ class TestEMMER(unittest.TestCase):
         ## filter: None
         print('        ---------------------------------------------------')
         print('        case 2: No filter')
-        print('    input_dir: "emmer/data/data_dir_1"')
-        input_dir = 'emmer/data/data_dir_1'
+        print('    input_dir: "piemmer/data/data_dir_1"')
+        input_dir = 'piemmer/data/data_dir_1'
         print('    output_file_tag: "test1"')
         output_file_tag = 'test1'
         print('    detection_limit: 0')
@@ -370,8 +371,8 @@ class TestEMMER(unittest.TestCase):
     def test_multipleFiles(self):
         print('        ---------------------------------------------------')
         print('        case 1: set quick_look at False')
-        print('    input_dir: "emmer/data/data_dir_2"')
-        input_dir = 'emmer/data/data_dir_2'
+        print('    input_dir: "piemmer/data/data_dir_2"')
+        input_dir = 'piemmer/data/data_dir_2'
         print('    output_file_tag: "multipleFiles_test1"')
         output_file_tag = 'multipleFiles_test2'
         print('    detection_limit: 0')
@@ -408,7 +409,8 @@ class TestEMMER(unittest.TestCase):
 
         one_file.multipleFiles()
 
-        my_result = one_file.summary_df
+        output_df = one_file.summary_df
+        my_result = output_df.reindex(sorted(output_df.columns), axis = 1)
 
         data = [[0.00, 28.57],
                 [50.00, 0.00],
@@ -423,8 +425,8 @@ class TestEMMER(unittest.TestCase):
 
         print('        ---------------------------------------------------')
         print('        case 2: set quick_look at True')
-        print('    input_dir: "emmer/data/data_dir_2"')
-        input_dir = 'emmer/data/data_dir_2'
+        print('    input_dir: "piemmer/data/data_dir_2"')
+        input_dir = 'piemmer/data/data_dir_2'
         print('    output_file_tag: "multipleFiles_test1"')
         output_file_tag = 'multipleFiles_test2'
         print('    detection_limit: 0')
@@ -478,8 +480,8 @@ class TestEMMER(unittest.TestCase):
 class TestMergeDataFrame(unittest.TestCase):
     def test_mergeDataFrame(self):
         print('\ntest_mergeDataFrame:')
-        print('    input_dir: "emmer/data/data_dir_2"')
-        input_dir = 'emmer/data/data_dir_2'
+        print('    input_dir: "piemmer/data/data_dir_2"')
+        input_dir = 'piemmer/data/data_dir_2'
         print('    output_file_tag: "test2"')
         output_file_tag = 'test2'
         print('    detection_limit: 0')

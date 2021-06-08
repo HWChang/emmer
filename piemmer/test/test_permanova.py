@@ -21,8 +21,8 @@ class TestPermanovaArgs(unittest.TestCase):
         print('\ntest_PermanovaArgs:')
         print('        case 1: error and warning handling')
         print('             1.1: give both args.i and args.p')
-        sys.argv[1:] = ['-m', 'Permanova', '-i', 'emmer/data/bake_data_dir_6/filtered_infoRich__PCA_coordinates.csv',
-                        '-p', 'emmer/data/bake_data_dir_6/_retrospect_permanova_parameter.csv']
+        sys.argv[1:] = ['-m', 'Permanova', '-i', 'piemmer/data/bake_data_dir_6/filtered_infoRich__PCA_coordinates.csv',
+                        '-p', 'piemmer/data/bake_data_dir_6/_retrospect_permanova_parameter.csv']
         current_wd = os.getcwd()
         processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
         processed_args.getHomeKeepingArgs()
@@ -46,7 +46,7 @@ class TestPermanovaArgs(unittest.TestCase):
 
         print('        ---------------------------------------------------')
         print('        case 2: expect to work')
-        sys.argv[1:] = ['-m', 'Permanova', '-p', 'emmer/data/bake_data_dir_6/_retrospect_permanova_parameter.csv']
+        sys.argv[1:] = ['-m', 'Permanova', '-p', 'piemmer/data/bake_data_dir_6/_retrospect_permanova_parameter.csv']
         current_wd = os.getcwd()
         processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
         processed_args.getHomeKeepingArgs()

@@ -32,8 +32,8 @@ class TestIndividualArgs(unittest.TestCase):
 
         print('        ---------------------------------------------------')
         print('             1.2: giving both args.i and args.p')
-        sys.argv[1:] = ['-m', 'Individual', '-p', 'emmer/data/bake_data_dir_7/_retrospect_individaul_coloring_parameter.csv',
-                        '-i', 'emmer/data/bake_data_dir_6/filtered_infoRich__PCA_coordinates.csv']
+        sys.argv[1:] = ['-m', 'Individual', '-p', 'piemmer/data/bake_data_dir_7/_retrospect_individaul_coloring_parameter.csv',
+                        '-i', 'piemmer/data/bake_data_dir_6/filtered_infoRich__PCA_coordinates.csv']
         current_wd = os.getcwd()
         processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
         processed_args.getHomeKeepingArgs()
@@ -48,7 +48,7 @@ class TestIndividualArgs(unittest.TestCase):
 
         print('        ---------------------------------------------------')
         print('             1.3: args.i is not a csv file')
-        sys.argv[1:] = ['-m', 'Individual', '-i', 'emmer/data/problem_maker/read_module/not_a_csv_file.txt']
+        sys.argv[1:] = ['-m', 'Individual', '-i', 'piemmer/data/problem_maker/read_module/not_a_csv_file.txt']
         current_wd = os.getcwd()
         processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
         processed_args.getHomeKeepingArgs()
@@ -60,7 +60,7 @@ class TestIndividualArgs(unittest.TestCase):
 
         print('        ---------------------------------------------------')
         print('        case 2: expect to work')
-        sys.argv[1:] = ['-m', 'Individual', '-p', 'emmer/data/bake_data_dir_7/_retrospect_individaul_coloring_parameter.csv']
+        sys.argv[1:] = ['-m', 'Individual', '-p', 'piemmer/data/bake_data_dir_7/_retrospect_individaul_coloring_parameter.csv']
         current_wd = os.getcwd()
         processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
         processed_args.getHomeKeepingArgs()

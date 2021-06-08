@@ -20,7 +20,7 @@ class TestReproducibilityArgs(unittest.TestCase):
     def test_ReproducibilityArgs(self):
         print('\ntest_ReproducibilityArgs:')
         print('        case 1: missing args.b setting')
-        sys.argv[1:] = ['-m', 'Reproducibility', '-i', 'emmer/data/bake_data_dir_4/information_rich_features_summary.csv']
+        sys.argv[1:] = ['-m', 'Reproducibility', '-i', 'piemmer/data/bake_data_dir_4/information_rich_features_summary.csv']
         current_wd = os.getcwd()
         processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
         processed_args.getHomeKeepingArgs()
@@ -46,7 +46,7 @@ class TestReproducibilityArgs(unittest.TestCase):
         print('        ---------------------------------------------------')
         print('        case 4: expect to work')
         print('             4.1: single file')
-        sys.argv[1:] = ['-m', 'Reproducibility', '-b', '40', '-i', 'emmer/data/bake_data_dir_4/information_rich_features_summary.csv']
+        sys.argv[1:] = ['-m', 'Reproducibility', '-b', '40', '-i', 'piemmer/data/bake_data_dir_4/information_rich_features_summary.csv']
         processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
         current_wd = os.getcwd()
         processed_args.getHomeKeepingArgs()
@@ -68,7 +68,7 @@ class TestReproducibilityArgs(unittest.TestCase):
         print('        ---------------------------------------------------')
         print('             4.2: multiple files')
         print('             4.2.1: summarized reproducibilty output')
-        sys.argv[1:] = ['-m', 'Reproducibility', '-b', '20', '-i', 'emmer/data/bake_data_dir_5']
+        sys.argv[1:] = ['-m', 'Reproducibility', '-b', '20', '-i', 'piemmer/data/bake_data_dir_5']
         current_wd = os.getcwd()
         processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
         processed_args.getHomeKeepingArgs()
@@ -80,7 +80,7 @@ class TestReproducibilityArgs(unittest.TestCase):
 
         print('        ---------------------------------------------------')
         print('             4.2.2: reproducibilty output from a single input file')
-        sys.argv[1:] = ['-m', 'Reproducibility', '-b', '20', '-i', 'emmer/data/bake_data_dir_8/case2_in_folder/']
+        sys.argv[1:] = ['-m', 'Reproducibility', '-b', '20', '-i', 'piemmer/data/bake_data_dir_8/case2_in_folder/']
         current_wd = os.getcwd()
         processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
         processed_args.getHomeKeepingArgs()
@@ -94,7 +94,7 @@ class TestReproducibilityArgs(unittest.TestCase):
         print('        ---------------------------------------------------')
         print('             4.3: generate a summarizing dataframe if there are multiple input file')
         print('                  row: information-rich features; column: input file names')
-        sys.argv[1:] = ['-m', 'Reproducibility', '-b', '20', '-i', 'emmer/data/bake_data_dir_8/case3_in_folder/']
+        sys.argv[1:] = ['-m', 'Reproducibility', '-b', '20', '-i', 'piemmer/data/bake_data_dir_8/case3_in_folder/']
         current_wd = os.getcwd()
         processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
         processed_args.getHomeKeepingArgs()
@@ -110,8 +110,8 @@ class TestReproducibility(unittest.TestCase):
 
     def test_FatternInput(self):
         print('\ntest_Reproducibility.FatternInput:')
-        print('    -i: "emmer/data/retrospect_data_dir_1/information_rich_features_summary.csv"')
-        input_dir = 'emmer/data/retrospect_data_dir_1/information_rich_features_summary.csv'
+        print('    -i: "piemmer/data/retrospect_data_dir_1/information_rich_features_summary.csv"')
+        input_dir = 'piemmer/data/retrospect_data_dir_1/information_rich_features_summary.csv'
         print('    -s: "reproducibility"')
         style = 'reproducibility'
 
@@ -130,8 +130,8 @@ class TestReproducibility(unittest.TestCase):
         print('\ntest_Reproducibility.RemoveZero:')
         print('        case 1: post-removal result')
         print('             1.1: check the value of elements that are keep after the removal')
-        print('    -i: "emmer/data/retrospect_data_dir_1/information_rich_features_summary.csv"')
-        input_dir = 'emmer/data/retrospect_data_dir_1/information_rich_features_summary.csv'
+        print('    -i: "piemmer/data/retrospect_data_dir_1/information_rich_features_summary.csv"')
+        input_dir = 'piemmer/data/retrospect_data_dir_1/information_rich_features_summary.csv'
         print('    -s: "reproducibility"')
         style = 'reproducibility'
 
@@ -157,8 +157,8 @@ class TestReproducibility(unittest.TestCase):
     def test_Stat(self):
         print('\ntest_Reproducibility.Stat:')
         print('        case 1: result')
-        print('    -i: "emmer/data/retrospect_data_dir_1/information_rich_features_summary.csv"')
-        input_dir = 'emmer/data/retrospect_data_dir_1/information_rich_features_summary.csv'
+        print('    -i: "piemmer/data/retrospect_data_dir_1/information_rich_features_summary.csv"')
+        input_dir = 'piemmer/data/retrospect_data_dir_1/information_rich_features_summary.csv'
         print('    -s: "reproducibility"')
         style = 'reproducibility'
 

@@ -46,12 +46,7 @@ class TestEvaluateInput(unittest.TestCase):
             confirmed_input = EvaluateInput(input = ['9999'], set = ['mode'],
                                             suppress = True, expect = expected_dict)
             confirmed_input.evaluateModeOption()
-        #confirmed_input = EvaluateInput(input = ['9999'], set = ['mode'],
-        #                                suppress = True, expect = expected_dict)
-        #confirmed_input.evaluateModeOption()
-        #my_result = processed_args.warning_code
-        #expected_result = '9'
-        #self.assertEqual(my_result, expected_result)
+
 
         print('        ---------------------------------------------------')
         print('             2.2: unexpected option number')
@@ -59,12 +54,7 @@ class TestEvaluateInput(unittest.TestCase):
             confirmed_input = EvaluateInput(input = ['individual'], set = ['mode'],
                                             suppress = True, expect = expected_dict)
             confirmed_input.evaluateModeOption()
-        #confirmed_input = EvaluateInput(input = ['individual'], set = ['mode'],
-        #                                suppress = True, expect = expected_dict)
-        #confirmed_input.evaluateModeOption()
-        #my_result = processed_args.warning_code
-        #expected_result = '9'
-        #self.assertEqual(my_result, expected_result)
+
 
         print('        ---------------------------------------------------')
         print('             3: expected to work')

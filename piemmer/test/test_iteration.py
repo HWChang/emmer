@@ -49,7 +49,7 @@ class TestInfoRichCalling(unittest.TestCase):
     def test_infoRichSelect(self):
         print('\ntest_InfoRichCalling.infoRichSelect:')
         print('        case 1: expect to work')
-        file_name = 'emmer/data/test_case_1.csv'
+        file_name = 'piemmer/data/test_case_1.csv'
         input_matrix = RawDataImport(file_name = file_name)
         input_matrix.readCSV()
         input_matrix.relativeAbundance()
@@ -71,7 +71,7 @@ class TestInfoRichCalling(unittest.TestCase):
         print('        ---------------------------------------------------')
         print('        case 2: raise error code 4')
         with self.assertRaises(ErrorCode4):
-            file_name = 'emmer/data/test_case_1.csv'
+            file_name = 'piemmer/data/test_case_1.csv'
             input_matrix = RawDataImport(file_name = file_name)
             input_matrix.readCSV()
             input_matrix.relativeAbundance()
@@ -92,7 +92,7 @@ class Test_reproducibility_summary(unittest.TestCase):
 
     def test_reproducibility_summary(self):
         print('\ntest_reproducibility_summary:')
-        file_name = 'emmer/data/test_case_1.csv'
+        file_name = 'piemmer/data/test_case_1.csv'
         input_matrix = RawDataImport(file_name = file_name)
         input_matrix.readCSV()
         input_matrix.relativeAbundance()
@@ -139,8 +139,8 @@ class TestKernal(unittest.TestCase):
         print('        ---------------------------------------------------')
         print('        case 1: HardFilter (only set zero_tolerance)')
         print('             1.1: set detection limit correctly?')
-        print('    file_names: test_case_3.csv')
-        file_names = 'emmer/data/data_dir_1/test_case_1.csv'
+        print('    file_names: piemmer/data/data_dir_1/test_case_1.csv')
+        file_names = 'piemmer/data/data_dir_1/test_case_1.csv'
         print('    detection_limit: 0')
         detection_limit = 0
         print('    tolerance: 0.6')
@@ -195,7 +195,7 @@ class TestKernal(unittest.TestCase):
         print('        ---------------------------------------------------')
         print('             1.4: error handling')
         print('                  unexpected detection limit setting')
-        file_names = 'emmer/data/data_dir_1/test_case_1.csv'
+        file_names = 'piemmer/data/data_dir_1/test_case_1.csv'
         print('    detection_limit: 100')
         detection_limit = 100
         print('    tolerance: 0.6')
@@ -235,7 +235,7 @@ class TestKernal(unittest.TestCase):
         print('        case 2: None (only set zero_tolerance)')
         print('             2.1: set detection limit correctly?')
         print('    file_names: test_case_3.csv')
-        file_names = 'emmer/data/data_dir_1/test_case_1.csv'
+        file_names = 'piemmer/data/data_dir_1/test_case_1.csv'
         print('    detection_limit: 0')
         detection_limit = 0
         print('    tolerance: 1')
@@ -298,7 +298,7 @@ class TestKernal(unittest.TestCase):
         print('        case 3: set detection limits')
         print('             3.1: set detection limits correctly')
         print('    file_names: test_case_3.csv')
-        file_names = 'emmer/data/data_dir_1/test_case_1.csv'
+        file_names = 'piemmer/data/data_dir_1/test_case_1.csv'
         print('    detection_limit: 10')
         detection_limit = 10
         print('    tolerance: 1')
@@ -360,8 +360,8 @@ class TestKernal(unittest.TestCase):
         print('\ntest_Kernal.infoRichCallingAndReproducibility:')
         print('        case 1: set quick_look (args.q) as False')
         print('                before consider the maximum number of information-rich feature')
-        print('    file_names: test_case_1.csv')
-        file_names = 'emmer/data/test_case_1.csv'
+        print('    file_names: piemmer/data/test_case_1.csv')
+        file_names = 'piemmer/data/test_case_1.csv'
         print('    detection_limit: 0')
         detection_limit = 0
         print('    tolerance: 1')
@@ -404,8 +404,8 @@ class TestKernal(unittest.TestCase):
         print('        case 2: maximum number of information-rich feature')
         print('             2.1 at quick look mode')
         print('                 ability to prevent report more information-rich feature than the maximum cap (Warning code 11)')
-        print('    file_names: data/data_dir_4/group_A.csv')
-        file_names = 'emmer/data/data_dir_4/group_A.csv'
+        print('    file_names: piemmer/data/data_dir_4/group_A.csv')
+        file_names = 'piemmer/data/data_dir_4/group_A.csv'
         print('    detection_limit: 0.001')
         detection_limit = 0.001
         print('    tolerance: 0.33')
@@ -456,8 +456,8 @@ class TestKernal(unittest.TestCase):
         print('        ---------------------------------------------------')
         print('             2.3 quick look mode off')
         print('             2.3.1 ability to prevent report more information-rich feature than the maximum cap (Warning code 11, 12)')
-        print('    file_names: data/data_dir_4/group_A.csv')
-        file_names = 'emmer/data/data_dir_4/group_A.csv'
+        print('    file_names: piemmer/data/data_dir_4/group_A.csv')
+        file_names = 'piemmer/data/data_dir_4/group_A.csv'
         print('    detection_limit: 0.001')
         detection_limit = 0.001
         print('    tolerance: 0.33')

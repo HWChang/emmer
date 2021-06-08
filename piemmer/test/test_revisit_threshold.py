@@ -234,8 +234,8 @@ class TestRevisitThreshold(unittest.TestCase):
 
     def test_getFileV(self):
         print('\ntest_RevisitThreshold.getFileV:')
-        print('        -v: "emmer/data/retrospect_data_dir_2/detail_vNE/"]')
-        args_v = 'emmer/data/retrospect_data_dir_2/detail_vNE/'
+        print('        -v: "piemmer/data/retrospect_data_dir_2/detail_vNE/"]')
+        args_v = 'piemmer/data/retrospect_data_dir_2/detail_vNE/'
         detail_vNE = GetFiles(input_dir = args_v)
         detail_vNE_basename = list([os.path.basename(element) for element in detail_vNE.input_files])
         detail_vNE_group = list([element.split("__")[0] for element in detail_vNE_basename])
@@ -249,8 +249,8 @@ class TestRevisitThreshold(unittest.TestCase):
 
     def test_getFileI(self):
         print('\ntest_RevisitThreshold.getFileI:')
-        print('        -i: "emmer/data/retrospect_data_dir_2/pre_filter_data/"')
-        args_i = 'emmer/data/retrospect_data_dir_2/pre_filter_data/'
+        print('        -i: "piemmer/data/retrospect_data_dir_2/pre_filter_data/"')
+        args_i = 'piemmer/data/retrospect_data_dir_2/pre_filter_data/'
         data_dir = os.path.join(os.getcwd(), args_i)
         data_file = GetFiles(input_dir = data_dir)
         data_file_basename = list([os.path.basename(element) for element in data_file.input_files])
@@ -266,12 +266,12 @@ class TestRevisitThreshold(unittest.TestCase):
     def test_error15(self):
         print('\ntest_RevisitThreshold.init:')
         print('        case 1: check input -v and -i')
-        print('        -v: "emmer/data/retrospect_data_dir_2/detail_vNE/"]')
-        args_v = 'emmer/data/retrospect_data_dir_2/detail_vNE/'
+        print('        -v: "piemmer/data/retrospect_data_dir_2/detail_vNE/"]')
+        args_v = 'piemmer/data/retrospect_data_dir_2/detail_vNE/'
         input_dir = os.path.join(os.getcwd(), args_v)
         detail_vNE = GetFiles(input_dir = args_v)
-        print('        -i: "emmer/data/retrospect_data_dir_2/pre_filter_data_not_match/"')
-        args_i = 'emmer/data/retrospect_data_dir_2/pre_filter_data_cause_error_15/'
+        print('        -i: "piemmer/data/retrospect_data_dir_2/pre_filter_data_not_match/"')
+        args_i = 'piemmer/data/retrospect_data_dir_2/pre_filter_data_cause_error_15/'
         data_dir = os.path.join(os.getcwd(), args_i)
         data_file = GetFiles(input_dir = data_dir)
         print('        -t: "2,1,1"')
@@ -312,12 +312,12 @@ class TestRevisitThreshold(unittest.TestCase):
         #       1.1: group B
         print('        case 1: check the number of file for a specific group')
         print('             1.1: group B')
-        print('        -v: "emmer/data/retrospect_data_dir_2/detail_vNE/"]')
-        args_v = 'emmer/data/retrospect_data_dir_2/detail_vNE/'
+        print('        -v: "piemmer/data/retrospect_data_dir_2/detail_vNE/"]')
+        args_v = 'piemmer/data/retrospect_data_dir_2/detail_vNE/'
         input_dir = os.path.join(os.getcwd(), args_v)
         detail_vNE = GetFiles(input_dir = args_v)
-        print('        -i: "emmer/data/retrospect_data_dir_2/pre_filter_data/"')
-        args_i = 'emmer/data/retrospect_data_dir_2/pre_filter_data/'
+        print('        -i: "piemmer/data/retrospect_data_dir_2/pre_filter_data/"')
+        args_i = 'piemmer/data/retrospect_data_dir_2/pre_filter_data/'
         data_dir = os.path.join(os.getcwd(), args_i)
         data_file = GetFiles(input_dir = data_dir)
         print('        -t: "3,1,1"')
@@ -415,13 +415,13 @@ class TestRevisitThreshold(unittest.TestCase):
         print('        case 1: select the information-rich features based on different threshold')
         print('             1.1: keep the parameter the same as the time I first computed the information-rich feature')
 
-        print('        -v: "emmer/data/retrospect_data_dir_2/detail_vNE/"]')
-        args_v = 'emmer/data/retrospect_data_dir_2/detail_vNE/'
+        print('        -v: "piemmer/data/retrospect_data_dir_2/detail_vNE/"]')
+        args_v = 'piemmer/data/retrospect_data_dir_2/detail_vNE/'
         input_dir = os.path.join(os.getcwd(), args_v)
         detail_vNE = GetFiles(input_dir = args_v)
 
-        print('        -i: "emmer/data/retrospect_data_dir_2/pre_filter_data/"')
-        args_i = 'emmer/data/retrospect_data_dir_2/pre_filter_data/'
+        print('        -i: "piemmer/data/retrospect_data_dir_2/pre_filter_data/"')
+        args_i = 'piemmer/data/retrospect_data_dir_2/pre_filter_data/'
         data_dir = os.path.join(os.getcwd(), args_i)
         data_file = GetFiles(input_dir = data_dir)
 
@@ -500,12 +500,12 @@ class TestRevisitThreshold(unittest.TestCase):
 
         ## Case 1: combine lists of information-rich features
         print('        Case 1: combine lists of information-rich features')
-        print('        -v: "emmer/data/retrospect_data_dir_2/detail_vNE/"]')
-        args_v = 'emmer/data/retrospect_data_dir_2/detail_vNE/'
+        print('        -v: "piemmer/data/retrospect_data_dir_2/detail_vNE/"]')
+        args_v = 'piemmer/data/retrospect_data_dir_2/detail_vNE/'
         input_dir = os.path.join(os.getcwd(), args_v)
         detail_vNE = GetFiles(input_dir = args_v)
-        print('        -i: "emmer/data/retrospect_data_dir_2/pre_filter_data/"')
-        args_i = 'emmer/data/retrospect_data_dir_2/pre_filter_data/'
+        print('        -i: "piemmer/data/retrospect_data_dir_2/pre_filter_data/"')
+        args_i = 'piemmer/data/retrospect_data_dir_2/pre_filter_data/'
         data_dir = os.path.join(os.getcwd(), args_i)
         data_file = GetFiles(input_dir = data_dir)
         print('        -t: "2,1,1"')
@@ -564,12 +564,12 @@ class TestRevisitThreshold(unittest.TestCase):
 
         ## Case 1: check the number of information-rich feature
         print('    Case 1: check the number of information-rich feature')
-        print('        -v: "emmer/data/retrospect_data_dir_2/detail_vNE/"]')
-        args_v = 'emmer/data/retrospect_data_dir_2/detail_vNE/'
+        print('        -v: "piemmer/data/retrospect_data_dir_2/detail_vNE/"]')
+        args_v = 'piemmer/data/retrospect_data_dir_2/detail_vNE/'
         input_dir = os.path.join(os.getcwd(), args_v)
         detail_vNE = GetFiles(input_dir = args_v)
-        print('        -i: "emmer/data/retrospect_data_dir_2/pre_filter_data/"')
-        args_i = 'emmer/data/retrospect_data_dir_2/pre_filter_data/'
+        print('        -i: "piemmer/data/retrospect_data_dir_2/pre_filter_data/"')
+        args_i = 'piemmer/data/retrospect_data_dir_2/pre_filter_data/'
         data_dir = os.path.join(os.getcwd(), args_i)
         data_file = GetFiles(input_dir = data_dir)
         print('        -u: "3,3,0"')
@@ -622,12 +622,12 @@ class TestRevisitThreshold(unittest.TestCase):
 
         ## Case 1: Number of iteration
         print('        Case 1: Number of iteration')
-        print('        -v: "emmer/data/retrospect_data_dir_2/detail_vNE/"]')
-        args_v = 'emmer/data/retrospect_data_dir_2/detail_vNE/'
+        print('        -v: "piemmer/data/retrospect_data_dir_2/detail_vNE/"]')
+        args_v = 'piemmer/data/retrospect_data_dir_2/detail_vNE/'
         input_dir = os.path.join(os.getcwd(), args_v)
         detail_vNE = GetFiles(input_dir = args_v)
-        print('        -i: "emmer/data/retrospect_data_dir_2/pre_filter_data/"')
-        args_i = 'emmer/data/retrospect_data_dir_2/pre_filter_data/'
+        print('        -i: "piemmer/data/retrospect_data_dir_2/pre_filter_data/"')
+        args_i = 'piemmer/data/retrospect_data_dir_2/pre_filter_data/'
         data_dir = os.path.join(os.getcwd(), args_i)
         data_file = GetFiles(input_dir = data_dir)
         print('        -t: "2,1,1"')
@@ -716,12 +716,12 @@ class TestRevisitThreshold(unittest.TestCase):
     def test_compareSettings(self):
         print('\ntest_RevisitThreshold.compareSettings:')
         print('        Case 1: Expected input threshold setting')
-        print('        -v: "emmer/data/retrospect_data_dir_2/detail_vNE/"]')
-        args_v = 'emmer/data/retrospect_data_dir_2/detail_vNE/'
+        print('        -v: "piemmer/data/retrospect_data_dir_2/detail_vNE/"]')
+        args_v = 'piemmer/data/retrospect_data_dir_2/detail_vNE/'
         input_dir = os.path.join(os.getcwd(), args_v)
         detail_vNE = GetFiles(input_dir = args_v)
-        print('        -i: "emmer/data/retrospect_data_dir_2/pre_filter_data/"')
-        args_i = 'emmer/data/retrospect_data_dir_2/pre_filter_data/'
+        print('        -i: "piemmer/data/retrospect_data_dir_2/pre_filter_data/"')
+        args_i = 'piemmer/data/retrospect_data_dir_2/pre_filter_data/'
         data_dir = os.path.join(os.getcwd(), args_i)
         data_file = GetFiles(input_dir = data_dir)
         print('        -t: "1,1,0"')

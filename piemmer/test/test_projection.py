@@ -23,7 +23,7 @@ class TestProjectionArgs(unittest.TestCase):
         print('\ntest_ProjectionArgs:')
         print('        case 1: error handling')
         print('             1.1: missing args.i')
-        sys.argv[1:] = ['-m', 'Projection', '-i', 'emmer/data/bake_data_dir_9/']
+        sys.argv[1:] = ['-m', 'Projection', '-i', 'piemmer/data/bake_data_dir_9/']
         current_wd = os.getcwd()
         processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
         processed_args.getHomeKeepingArgs()
@@ -35,8 +35,8 @@ class TestProjectionArgs(unittest.TestCase):
 
         print('        ---------------------------------------------------')
         print('             1.2: unexpect v input')
-        sys.argv[1:] = ['-m', 'Projection', '-i', 'emmer/data/bake_data_dir_9/filtered_infoRich__PCA_coordinates.csv',
-                        '-v', 'emmer/data/bake_data_dir_9/']
+        sys.argv[1:] = ['-m', 'Projection', '-i', 'piemmer/data/bake_data_dir_9/filtered_infoRich__PCA_coordinates.csv',
+                        '-v', 'piemmer/data/bake_data_dir_9/']
         current_wd = os.getcwd()
         processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
         processed_args.getHomeKeepingArgs()
@@ -49,9 +49,9 @@ class TestProjectionArgs(unittest.TestCase):
         print('        ---------------------------------------------------')
         print('             1.3: unexpect s1 or s2')
         print('             1.3.1: unexpect s1')
-        sys.argv[1:] = ['-m', 'Projection', '-i', 'emmer/data/bake_data_dir_9/filtered_infoRich__PCA_coordinates.csv',
-                        '-v', 'emmer/data/bake_data_dir_9/filtered_infoRich__transformation_matrix.csv',
-                        '-s1', 'emmer/data/bake_data_dir_9/']
+        sys.argv[1:] = ['-m', 'Projection', '-i', 'piemmer/data/bake_data_dir_9/filtered_infoRich__PCA_coordinates.csv',
+                        '-v', 'piemmer/data/bake_data_dir_9/filtered_infoRich__transformation_matrix.csv',
+                        '-s1', 'piemmer/data/bake_data_dir_9/']
         current_wd = os.getcwd()
         processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
         processed_args.getHomeKeepingArgs()
@@ -63,10 +63,10 @@ class TestProjectionArgs(unittest.TestCase):
 
         print('        ---------------------------------------------------')
         print('             1.3.2: unexpect s2')
-        sys.argv[1:] = ['-m', 'Projection', '-i', 'emmer/data/bake_data_dir_9/filtered_infoRich__PCA_coordinates.csv',
-                        '-v', 'emmer/data/bake_data_dir_9/filtered_infoRich__transformation_matrix.csv',
-                        '-s1', 'emmer/data/bake_data_dir_9/filtered_infoRich__data_colmean.csv',
-                        '-s2', 'emmer/data/bake_data_dir_9']
+        sys.argv[1:] = ['-m', 'Projection', '-i', 'piemmer/data/bake_data_dir_9/filtered_infoRich__PCA_coordinates.csv',
+                        '-v', 'piemmer/data/bake_data_dir_9/filtered_infoRich__transformation_matrix.csv',
+                        '-s1', 'piemmer/data/bake_data_dir_9/filtered_infoRich__data_colmean.csv',
+                        '-s2', 'piemmer/data/bake_data_dir_9']
         current_wd = os.getcwd()
         processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
         processed_args.getHomeKeepingArgs()
@@ -79,9 +79,9 @@ class TestProjectionArgs(unittest.TestCase):
         print('        ---------------------------------------------------')
         print('             1.4: mismatch v and s1')
         print('             1.4.1: do not have exactly the same feature names')
-        sys.argv[1:] = ['-m', 'Projection', '-i', 'emmer/data/bake_data_dir_9/filtered_infoRich__PCA_coordinates.csv',
-                        '-v', 'emmer/data/bake_data_dir_9/filtered_infoRich__transformation_matrix.csv',
-                        '-s1', 'emmer/data/bake_data_dir_9/incorrect_colmean_1.csv']
+        sys.argv[1:] = ['-m', 'Projection', '-i', 'piemmer/data/bake_data_dir_9/filtered_infoRich__PCA_coordinates.csv',
+                        '-v', 'piemmer/data/bake_data_dir_9/filtered_infoRich__transformation_matrix.csv',
+                        '-s1', 'piemmer/data/bake_data_dir_9/incorrect_colmean_1.csv']
         current_wd = os.getcwd()
         processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
         processed_args.getHomeKeepingArgs()
@@ -93,9 +93,9 @@ class TestProjectionArgs(unittest.TestCase):
 
         print('        ---------------------------------------------------')
         print('             1.4.2: feature names in -v and -s1 are not in the same order')
-        sys.argv[1:] = ['-m', 'Projection', '-i', 'emmer/data/bake_data_dir_9/filtered_infoRich__PCA_coordinates.csv',
-                        '-v', 'emmer/data/bake_data_dir_9/filtered_infoRich__transformation_matrix.csv',
-                        '-s1', 'emmer/data/bake_data_dir_9/incorrect_colmean_2.csv']
+        sys.argv[1:] = ['-m', 'Projection', '-i', 'piemmer/data/bake_data_dir_9/filtered_infoRich__PCA_coordinates.csv',
+                        '-v', 'piemmer/data/bake_data_dir_9/filtered_infoRich__transformation_matrix.csv',
+                        '-s1', 'piemmer/data/bake_data_dir_9/incorrect_colmean_2.csv']
         current_wd = os.getcwd()
         processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
         processed_args.getHomeKeepingArgs()
@@ -107,10 +107,10 @@ class TestProjectionArgs(unittest.TestCase):
 
         print('        ---------------------------------------------------')
         print('             1.5: mismatch s1 and s2')
-        sys.argv[1:] = ['-m', 'Projection', '-i', 'emmer/data/bake_data_dir_9/filtered_infoRich__PCA_coordinates.csv',
-                        '-v', 'emmer/data/bake_data_dir_9/filtered_infoRich__transformation_matrix.csv',
-                        '-s1', 'emmer/data/bake_data_dir_9/filtered_infoRich__data_colmean.csv',
-                        '-s2', 'emmer/data/bake_data_dir_9/incorrect__data_colstd.csv']
+        sys.argv[1:] = ['-m', 'Projection', '-i', 'piemmer/data/bake_data_dir_9/filtered_infoRich__PCA_coordinates.csv',
+                        '-v', 'piemmer/data/bake_data_dir_9/filtered_infoRich__transformation_matrix.csv',
+                        '-s1', 'piemmer/data/bake_data_dir_9/filtered_infoRich__data_colmean.csv',
+                        '-s2', 'piemmer/data/bake_data_dir_9/incorrect__data_colstd.csv']
         current_wd = os.getcwd()
         processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
         processed_args.getHomeKeepingArgs()
@@ -122,9 +122,9 @@ class TestProjectionArgs(unittest.TestCase):
 
         print('        ---------------------------------------------------')
         print('             1.6: missing x')
-        sys.argv[1:] = ['-m', 'Projection', '-i', 'emmer/data/bake_data_dir_9/filtered_infoRich__PCA_coordinates.csv',
-                        '-v', 'emmer/data/bake_data_dir_9/filtered_infoRich__transformation_matrix.csv',
-                        '-s1', 'emmer/data/bake_data_dir_9/filtered_infoRich__data_colmean.csv']
+        sys.argv[1:] = ['-m', 'Projection', '-i', 'piemmer/data/bake_data_dir_9/filtered_infoRich__PCA_coordinates.csv',
+                        '-v', 'piemmer/data/bake_data_dir_9/filtered_infoRich__transformation_matrix.csv',
+                        '-s1', 'piemmer/data/bake_data_dir_9/filtered_infoRich__data_colmean.csv']
         current_wd = os.getcwd()
         processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
         processed_args.getHomeKeepingArgs()
@@ -138,10 +138,10 @@ class TestProjectionArgs(unittest.TestCase):
         print('        case 2: expect to work')
         print('             2.1: single file')
         print('             2.1.1: s1')
-        sys.argv[1:] = ['-m', 'Projection', '-i', 'emmer/data/bake_data_dir_9/filtered_infoRich__PCA_coordinates.csv',
-                        '-v', 'emmer/data/bake_data_dir_9/filtered_infoRich__transformation_matrix.csv',
-                        '-s1', 'emmer/data/bake_data_dir_9/filtered_infoRich__data_colmean.csv',
-                        '-x', 'emmer/data/bake_data_dir_9/new_observation.csv']
+        sys.argv[1:] = ['-m', 'Projection', '-i', 'piemmer/data/bake_data_dir_9/filtered_infoRich__PCA_coordinates.csv',
+                        '-v', 'piemmer/data/bake_data_dir_9/filtered_infoRich__transformation_matrix.csv',
+                        '-s1', 'piemmer/data/bake_data_dir_9/filtered_infoRich__data_colmean.csv',
+                        '-x', 'piemmer/data/bake_data_dir_9/new_observation.csv']
         current_wd = os.getcwd()
         processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
         processed_args.getHomeKeepingArgs()
@@ -158,11 +158,11 @@ class TestProjectionArgs(unittest.TestCase):
 
         print('        ---------------------------------------------------')
         print('             2.1.2: s1 and s2')
-        sys.argv[1:] = ['-m', 'Projection', '-i', 'emmer/data/bake_data_dir_9/filtered_infoRich__PCA_coordinates.csv',
-                        '-v', 'emmer/data/bake_data_dir_9/filtered_infoRich__transformation_matrix.csv',
-                        '-s1', 'emmer/data/bake_data_dir_9/filtered_infoRich__data_colmean.csv',
-                        '-s2', 'emmer/data/bake_data_dir_9/filtered_infoRich__data_colstd.csv',
-                        '-x', 'emmer/data/bake_data_dir_9/new_observation.csv']
+        sys.argv[1:] = ['-m', 'Projection', '-i', 'piemmer/data/bake_data_dir_9/filtered_infoRich__PCA_coordinates.csv',
+                        '-v', 'piemmer/data/bake_data_dir_9/filtered_infoRich__transformation_matrix.csv',
+                        '-s1', 'piemmer/data/bake_data_dir_9/filtered_infoRich__data_colmean.csv',
+                        '-s2', 'piemmer/data/bake_data_dir_9/filtered_infoRich__data_colstd.csv',
+                        '-x', 'piemmer/data/bake_data_dir_9/new_observation.csv']
         current_wd = os.getcwd()
         processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
         processed_args.getHomeKeepingArgs()
@@ -180,10 +180,10 @@ class TestProjectionArgs(unittest.TestCase):
         print('        ---------------------------------------------------')
         print('             2.2: mulitple file')
         print('             2.2.1: get correct file names')
-        sys.argv[1:] = ['-m', 'Projection', '-i', 'emmer/data/bake_data_dir_9/filtered_infoRich__PCA_coordinates.csv',
-                        '-v', 'emmer/data/bake_data_dir_9/filtered_infoRich__transformation_matrix.csv',
-                        '-s1', 'emmer/data/bake_data_dir_9/filtered_infoRich__data_colmean.csv',
-                        '-x', 'emmer/data/bake_data_dir_9/multiple_input_file']
+        sys.argv[1:] = ['-m', 'Projection', '-i', 'piemmer/data/bake_data_dir_9/filtered_infoRich__PCA_coordinates.csv',
+                        '-v', 'piemmer/data/bake_data_dir_9/filtered_infoRich__transformation_matrix.csv',
+                        '-s1', 'piemmer/data/bake_data_dir_9/filtered_infoRich__data_colmean.csv',
+                        '-x', 'piemmer/data/bake_data_dir_9/multiple_input_file']
         current_wd = os.getcwd()
         processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
         processed_args.getHomeKeepingArgs()
@@ -239,10 +239,10 @@ class TestProjectNew(unittest.TestCase):
         print('\ntest_projectNew:')
         print('        case 1: s1')
         print('             1.1: expect to work')
-        sys.argv[1:] = ['-m', 'Projection', '-i', 'emmer/data/bake_data_dir_9/filtered_infoRich__PCA_coordinates.csv',
-                        '-v', 'emmer/data/bake_data_dir_9/filtered_infoRich__transformation_matrix.csv',
-                        '-s1', 'emmer/data/bake_data_dir_9/filtered_infoRich__data_colmean.csv',
-                        '-x', 'emmer/data/bake_data_dir_9/new_observation.csv',
+        sys.argv[1:] = ['-m', 'Projection', '-i', 'piemmer/data/bake_data_dir_9/filtered_infoRich__PCA_coordinates.csv',
+                        '-v', 'piemmer/data/bake_data_dir_9/filtered_infoRich__transformation_matrix.csv',
+                        '-s1', 'piemmer/data/bake_data_dir_9/filtered_infoRich__data_colmean.csv',
+                        '-x', 'piemmer/data/bake_data_dir_9/new_observation.csv',
                         '-o', 'unittest', '-r']
         current_wd = os.getcwd()
         processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
@@ -274,11 +274,11 @@ class TestProjectNew(unittest.TestCase):
 
         print('        case 2: s1 and s2')
         print('             2.1: expect to work')
-        sys.argv[1:] = ['-m', 'Projection', '-i', 'emmer/data/bake_data_dir_9/s1_s2/filtered_infoRich__PCA_coordinates.csv',
-                        '-v', 'emmer/data/bake_data_dir_9/s1_s2/filtered_infoRich__transformation_matrix.csv',
-                        '-s1', 'emmer/data/bake_data_dir_9/s1_s2/filtered_infoRich__data_colmean.csv',
-                        '-s2', 'emmer/data/bake_data_dir_9/s1_s2/filtered_infoRich__data_colstd.csv',
-                        '-x', 'emmer/data/bake_data_dir_9/s1_s2/new_observations/new_obs_filterd_data.csv',
+        sys.argv[1:] = ['-m', 'Projection', '-i', 'piemmer/data/bake_data_dir_9/s1_s2/filtered_infoRich__PCA_coordinates.csv',
+                        '-v', 'piemmer/data/bake_data_dir_9/s1_s2/filtered_infoRich__transformation_matrix.csv',
+                        '-s1', 'piemmer/data/bake_data_dir_9/s1_s2/filtered_infoRich__data_colmean.csv',
+                        '-s2', 'piemmer/data/bake_data_dir_9/s1_s2/filtered_infoRich__data_colstd.csv',
+                        '-x', 'piemmer/data/bake_data_dir_9/s1_s2/new_observations/new_obs_filterd_data.csv',
                         '-o', 'unittest', '-r']
         current_wd = os.getcwd()
         processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
