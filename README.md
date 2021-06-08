@@ -1,7 +1,8 @@
 ![build](https://travis-ci.com/HWChang/emmer.svg?branch=master)
 ![platforms](https://anaconda.org/bioconda/piemmer/badges/platforms.svg)
 ![pypi](https://img.shields.io/pypi/v/piemmer?style=flat-square)
-![conda version](https://anaconda.org/bioconda/piemmer/badges/version.svg)
+![conda version](
+https://anaconda.org/bioconda/piemmer/badges/version.svg)
 ![license](https://img.shields.io/github/license/HWChang/emmer?style=flat-square)
 
 # PIEMMER: Simplify the Input for Principal Component Analysis
