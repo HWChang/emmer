@@ -1,7 +1,7 @@
 numpy
-pandas == 1.2.4
-matplotlib == 3.3.4
-scikit-bio == 0.5.6
-scipy == 1.6.2
-tqdm == 4.59.0
-statsmodels == 0.12.2
+pandas 
+matplotlib 
+scikit-bio 
+scipy 
+tqdm 
+statsmodels 
