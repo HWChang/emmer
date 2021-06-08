@@ -202,7 +202,7 @@ class TestEMMER(unittest.TestCase):
                          use_fractional_abundance = use_fractional_abundance)
         my_result = one_file.input_file_names
 
-        expected_result = ['emmer/data/data_dir_1/test_case_1.csv']
+        expected_result = ['piemmer/data/data_dir_1/test_case_1.csv']
         self.assertListEqual(my_result, expected_result)
         shutil.rmtree('output')
         print('===========================================================')
@@ -463,7 +463,9 @@ class TestEMMER(unittest.TestCase):
 
         one_file.multipleFiles()
 
-        my_result = one_file.summary_df
+        output_df = one_file.summary_df
+        my_result = output_df.reindex(sorted(output_df.columns), axis = 1)
+
 
         data = [[1.0, 0.0],
                 [1.0, 0.0],

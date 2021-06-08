@@ -43,7 +43,7 @@ class TestBifuricationArgs(unittest.TestCase):
                                                  suppress = True)
 
         print('        ---------------------------------------------------')
-        print('             1.3: args.1 only contains one csv file')
+        print('             1.3: args.i only contains one csv file')
         #sys.argv[1:] = ['-m', 'Bifurication', '-p', 'emmer/data/bake_data_dir_4/information_rich_features_summary.csv',
         sys.argv[1:] = ['-m', 'Bifurication', '-p', 'piemmer/data/bake_data_dir_4/information_rich_features_summary.csv',
         #                '-i', 'emmer/data/data_dir_1']        
@@ -62,7 +62,7 @@ class TestBifuricationArgs(unittest.TestCase):
         #sys.argv[1:] = ['-m', 'Bifurication', '-p', 'emmer/data/bake_data_dir_4/information_rich_features_summary.csv',
         sys.argv[1:] = ['-m', 'Bifurication', '-p', 'piemmer/data/bake_data_dir_4/information_rich_features_summary.csv',
         #                '-i', 'emmer/data/bake_data_dir_4/filtered_data']
-                        '-i', 'piemmer/bake_data_dir_4/filtered_data']
+                        '-i', 'piemmer/data/bake_data_dir_4/filtered_data/']
         current_wd = os.getcwd()
         processed_args = BakeCommonArgs(suppress = True, test = False, neglect = True, silence = False)
         processed_args.getHomeKeepingArgs()
